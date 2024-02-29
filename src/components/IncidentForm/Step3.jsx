@@ -19,112 +19,134 @@ const Step3 = () => {
   return (
     <>
       <div className="step-container">
-        <FieldArray name="someoneElseFields">
-          {({ push, remove }) => {
+        <FieldArray
+          name="someoneElseFields"
+          render={({ push, remove, form: { errors, touched } }) => {
             return (
               <>
-                {values.someoneElseFields.map((victim, index) => (
-                  <div key={index} className="someone-else-container">
-                    <div>
-                      <label htmlFor="victimFirstName">
-                        <TranslationComponent
-                          keys={["firstname"]}
-                          school="basisschool"
+                {values.someoneElseFields.map((victim, index) => {
+                  let errorMsgs = null;
+                  if (
+                    errors.someoneElseFields &&
+                    errors.someoneElseFields[index] &&
+                    touched.someoneElseFields
+                  ) {
+                    errorMsgs = {
+                      victimFirstName:
+                        errors.someoneElseFields[index].victimFirstName,
+                      victimLastName:
+                        errors.someoneElseFields[index].victimLastName,
+                      victimGender:
+                        errors.someoneElseFields[index].victimGender,
+                    };
+                  }
+                  return (
+                    <div key={index} className="someone-else-container">
+                      <div>
+                        <label htmlFor="victimFirstName">
+                          <TranslationComponent
+                            keys={["firstname"]}
+                            school="basisschool"
+                          />
+                        </label>
+                        <Field
+                          type="text"
+                          name={`someoneElseFields.${index}.victimFirstName`}
+                          className="input-field"
+                          placeholder="Voer uw voornaam in"
                         />
-                      </label>
-                      <Field
-                        type="text"
-                        name={`someoneElseFields.${index}.victimFirstName`}
-                        className="input-field"
-                        placeholder="Voer uw voornaam in"
-                      />
-                      <ErrorMessage
-                        name={`someoneElseFields.${index}.victimFirstName`}
-                        component="div"
-                        className="error"
-                      />
-                    </div>
-                    <div className="mt-3">
-                      <label htmlFor="victimLastName">
-                        <TranslationComponent
-                          keys={["lastname"]}
-                          school="basisschool"
+                        {errorMsgs?.victimFirstName ? (
+                          <div className="error">
+                            {errorMsgs.victimFirstName}
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                      <div className="mt-3">
+                        <label htmlFor="victimLastName">
+                          <TranslationComponent
+                            keys={["lastname"]}
+                            school="basisschool"
+                          />
+                        </label>
+                        <Field
+                          type="text"
+                          name={`someoneElseFields.${index}.victimLastName`}
+                          className="input-field"
+                          placeholder="Voer uw achternaam in"
                         />
-                      </label>
-                      <Field
-                        type="text"
-                        name={`someoneElseFields.${index}.victimLastName`}
-                        className="input-field"
-                        placeholder="Voer uw achternaam in"
-                      />
-                      <ErrorMessage
-                        name={`someoneElseFields.${index}.victimLastName`}
-                        component="div"
-                        className="error"
-                      />
-                    </div>
-                    <div className="mt-3">
-                      <label>
-                        <TranslationComponent
-                          keys={["gender"]}
-                          school="basisschool"
-                        />
-                      </label>
-                      <div className="flex items-center gap-5 flex-wrap">
-                        <RadioButton
-                          name={`someoneElseFields.${index}.victimGender`}
-                          value="male"
-                          onChange={(e) =>
-                            handleChange(
-                              `someoneElseFields.${index}.victimGender`,
-                              e
-                            )
-                          }
-                        />
-                        <RadioButton
-                          name={`someoneElseFields.${index}.victimGender`}
-                          value="female"
-                          onChange={(e) =>
-                            handleChange(
-                              `someoneElseFields.${index}.victimGender`,
-                              e
-                            )
-                          }
-                        />
-                        <RadioButton
-                          name={`someoneElseFields.${index}.victimGender`}
-                          value="other"
-                          onChange={(e) =>
-                            handleChange(
-                              `someoneElseFields.${index}.victimGender`,
-                              e
-                            )
-                          }
+                        {errorMsgs?.victimLastName ? (
+                          <div className="error">
+                            {errorMsgs.victimLastName}
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                      <div className="mt-3">
+                        <label>
+                          <TranslationComponent
+                            keys={["gender"]}
+                            school="basisschool"
+                          />
+                        </label>
+                        <div className="flex items-center gap-5 flex-wrap">
+                          <RadioButton
+                            name={`someoneElseFields.${index}.victimGender`}
+                            value="male"
+                            onChange={(e) =>
+                              handleChange(
+                                `someoneElseFields.${index}.victimGender`,
+                                e
+                              )
+                            }
+                          />
+                          <RadioButton
+                            name={`someoneElseFields.${index}.victimGender`}
+                            value="female"
+                            onChange={(e) =>
+                              handleChange(
+                                `someoneElseFields.${index}.victimGender`,
+                                e
+                              )
+                            }
+                          />
+                          <RadioButton
+                            name={`someoneElseFields.${index}.victimGender`}
+                            value="other"
+                            onChange={(e) =>
+                              handleChange(
+                                `someoneElseFields.${index}.victimGender`,
+                                e
+                              )
+                            }
+                          />
+                        </div>
+                        {errorMsgs?.victimGender ? (
+                          <div className="error">{errorMsgs.victimGender}</div>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                      <div className="mt-3">
+                        <label htmlFor="class">
+                          {" "}
+                          <TranslationComponent
+                            keys={["class"]}
+                            school="basisschool"
+                          />
+                        </label>
+                        <ClassesDropdown name="victimClass" />
+                        <ErrorMessage
+                          name="victimClass"
+                          component="div"
+                          className="error"
                         />
                       </div>
-                      <ErrorMessage
-                        name="victimGender"
-                        component="div"
-                        className="error"
-                      />
                     </div>
-                    <div className="mt-3">
-                      <label htmlFor="class">
-                        {" "}
-                        <TranslationComponent
-                          keys={["class"]}
-                          school="basisschool"
-                        />
-                      </label>
-                      <ClassesDropdown name="victimClass" />
-                      <ErrorMessage
-                        name="victimClass"
-                        component="div"
-                        className="error"
-                      />
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
                 <div className={`${height ? "whoVictimWrapper" : ""}`}>
                   <div className="whoVictimContainer">
                     <TranslationComponent
@@ -167,7 +189,7 @@ const Step3 = () => {
               </>
             );
           }}
-        </FieldArray>
+        />
       </div>
     </>
   );

@@ -19,103 +19,121 @@ const Step6 = () => {
   return (
     <div className="step-container">
       <FieldArray name="bullies">
-        {({ push, remove }) => (
+        {({ push, remove, form: { errors, touched } }) => (
           <>
-            {values.bullies.map((bully, index) => (
-              <div key={index} className="mb-3 more-victims-div">
-                <p className="victim-heading font-bold mb-3">
-                  Bully {index + 1}
-                </p>
-                <div>
-                  <label htmlFor={`morebulliesFirstName${index}`}>
-                    <TranslationComponent
-                      keys={["firstname"]}
-                      school="basisschool"
+            {values.bullies.map((bully, index) => {
+              let errorMsgs = null;
+              if (errors.bullies && errors.bullies[index] && touched.bullies) {
+                errorMsgs = {
+                  morebulliesFirstName:
+                    errors.bullies[index].morebulliesFirstName,
+                  morebulliesLastName:
+                    errors.bullies[index].morebulliesLastName,
+                  morebulliesGender: errors.bullies[index].morebulliesGender,
+                };
+              }
+              return (
+                <div key={index} className="mb-3 more-victims-div">
+                  <p className="victim-heading font-bold mb-3">
+                    Bully {index + 1}
+                  </p>
+                  <div>
+                    <label htmlFor={`morebulliesFirstName${index}`}>
+                      <TranslationComponent
+                        keys={["firstname"]}
+                        school="basisschool"
+                      />
+                    </label>
+                    <Field
+                      type="text"
+                      name={`bullies.${index}.morebulliesFirstName`}
+                      className="input-field"
+                      placeholder="Voer uw voornaam in"
                     />
-                  </label>
-                  <Field
-                    type="text"
-                    name={`bullies.${index}.morebulliesFirstName`}
-                    className="input-field"
-                    placeholder="Voer uw voornaam in"
-                  />
-                  <ErrorMessage
-                    name={`bullies.${index}.morebulliesFirstName`}
-                    component="div"
-                    className="error"
-                  />
-                </div>
-                <div className="mt-3">
-                  <label htmlFor={`morebulliesLastName${index}`}>
-                    <TranslationComponent
-                      keys={["lastname"]}
-                      school="basisschool"
+                    {errorMsgs?.morebulliesFirstName ? (
+                      <div className="error">
+                        {errorMsgs.morebulliesFirstName}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div className="mt-3">
+                    <label htmlFor={`morebulliesLastName${index}`}>
+                      <TranslationComponent
+                        keys={["lastname"]}
+                        school="basisschool"
+                      />
+                    </label>
+                    <Field
+                      type="text"
+                      name={`bullies.${index}.morebulliesLastName`}
+                      className="input-field"
+                      placeholder="Voer uw achternaam in"
                     />
-                  </label>
-                  <Field
-                    type="text"
-                    name={`bullies.${index}.morebulliesLastName`}
-                    className="input-field"
-                    placeholder="Voer uw achternaam in"
-                  />
-                  <ErrorMessage
-                    name={`bullies.${index}.morebulliesLastName`}
-                    component="div"
-                    className="error"
-                  />
-                </div>
-                <div className="mt-3">
-                  <label>
-                    <TranslationComponent
-                      keys={["gender"]}
-                      school="basisschool"
+                    {errorMsgs?.morebulliesLastName ? (
+                      <div className="error">
+                        {errorMsgs.morebulliesLastName}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div className="mt-3">
+                    <label>
+                      <TranslationComponent
+                        keys={["gender"]}
+                        school="basisschool"
+                      />
+                    </label>
+                    <div className="flex items-center gap-5 flex-wrap">
+                      <RadioButton
+                        name={`bullies.${index}.morebulliesGender`}
+                        value="male"
+                        onChange={(e) =>
+                          handleChange("morebulliesGender", index, e)
+                        }
+                      />
+                      <RadioButton
+                        name={`bullies.${index}.morebulliesGender`}
+                        value="female"
+                        onChange={(e) =>
+                          handleChange("morebulliesGender", index, e)
+                        }
+                      />
+                      <RadioButton
+                        name={`bullies.${index}.morebulliesGender`}
+                        value="other"
+                        onChange={(e) =>
+                          handleChange("morebulliesGender", index, e)
+                        }
+                      />
+                    </div>
+                    {errorMsgs?.morebulliesGender ? (
+                      <div className="error">{errorMsgs.morebulliesGender}</div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div className="mt-3">
+                    <label htmlFor={`class${index}`}>
+                      <TranslationComponent
+                        keys={["class"]}
+                        school="basisschool"
+                      />
+                    </label>
+                    <ClassesDropdown
+                      name={`bullies.${index}.morebulliesClass`}
                     />
-                  </label>
-                  <div className="flex items-center gap-5 flex-wrap">
-                    <RadioButton
-                      name={`bullies.${index}.morebulliesGender`}
-                      value="male"
-                      onChange={(e) =>
-                        handleChange("morebulliesGender", index, e)
-                      }
-                    />
-                    <RadioButton
-                      name={`bullies.${index}.morebulliesGender`}
-                      value="female"
-                      onChange={(e) =>
-                        handleChange("morebulliesGender", index, e)
-                      }
-                    />
-                    <RadioButton
-                      name={`bullies.${index}.morebulliesGender`}
-                      value="other"
-                      onChange={(e) =>
-                        handleChange("morebulliesGender", index, e)
-                      }
+                    <ErrorMessage
+                      name={`bullies.${index}.morebulliesClass`}
+                      component="div"
+                      className="error"
                     />
                   </div>
-                  <ErrorMessage
-                    name={`bullies.${index}.morebulliesGender`}
-                    component="div"
-                    className="error"
-                  />
                 </div>
-                <div className="mt-3">
-                  <label htmlFor={`class${index}`}>
-                    <TranslationComponent
-                      keys={["class"]}
-                      school="basisschool"
-                    />
-                  </label>
-                  <ClassesDropdown name={`bullies.${index}.morebulliesClass`} />
-                  <ErrorMessage
-                    name={`bullies.${index}.morebulliesClass`}
-                    component="div"
-                    className="error"
-                  />
-                </div>
-              </div>
-            ))}
+              );
+            })}
 
             <TranslationComponent
               keys={["more_bullies"]}

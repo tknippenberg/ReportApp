@@ -386,6 +386,31 @@ label {
   color: #202020;
 }
 
+.success-div {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-heading {
+  color: IndianRed;
+  font-size: 2rem;
+  text-align: center;
+  line-height: 1.3;
+  margin-bottom: 0.5em;
+}
+
+.home-btn {
+  padding: 0.5em 1.5em;
+}
+
+.thank-you-text {
+  width: 50%;
+  text-align: center;
+}
+
 @media (max-width: 900px) {
   .form-container,
   .app-wrapper,
@@ -393,8 +418,38 @@ label {
     width: 90%;
   }
 
+  .thank-you-text {
+    width: 95%;
+    text-align: center;
+  }
+
   .radio input[type="radio"] {
     width: 100px;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-container {
+    width: 100%;
+  }
+  .step-container {
+    width: 95%;
+    margin: 2em auto;
+    padding: 1em;
+  }
+
+  .header-div {
+    padding: 0.7em 1em;
+  }
+
+  .form-button {
+    padding: 0.7em 1em;
+    font-size: 0.9rem;
+  }
+
+  .error,
+  label {
+    font-size: 0.9rem;
   }
 }
 

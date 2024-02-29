@@ -9,6 +9,7 @@ import Step6 from "./Step6";
 import { validationSchema } from "./ValidationSchema";
 import TranslationComponent from "../TranslationComponent";
 import Summary from "./Summary";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   whatHappened: "",
@@ -34,10 +35,16 @@ const initialValues = {
 
 const IncidentForm = () => {
   const [step, setStep] = useState(0);
+  const Navigate = useNavigate();
+  const [submit, setSubmit] = useState(false);
 
   const handlePrev = () => {
     step >= 1 ? setStep(step - 1) : setStep(0);
   };
+
+  // const handleNext = () => {
+  //   setStep(step + 1);
+  // };
 
   const handleNext = (values, { setTouched, setErrors }) => {
     try {
@@ -89,9 +96,17 @@ const IncidentForm = () => {
         }, {});
         setTouched(touchedState);
 
+        console.log(error.errors);
+
+        let errorsArr = [];
+        if ("inner" in error && Array.isArray(error.inner)) {
+          errorsArr = error.inner;
+        } else {
+          errorsArr = error.errors;
+        }
         // Set errors to display them in the form
-        const errorState = error.errors.reduce((acc, error) => {
-          acc[error.path] = error.message;
+        const errorState = errorsArr.reduce((acc, err) => {
+          acc[err.path] = err.message;
           return acc;
         }, {});
         setErrors(errorState);
@@ -114,6 +129,7 @@ const IncidentForm = () => {
   const handleSubmit = (values, { setSubmitting }) => {
     // Handle form submission
     console.log(values);
+    Navigate("/success");
   };
 
   return (
@@ -149,8 +165,12 @@ const IncidentForm = () => {
                 >
                   Previous
                 </button>
-                {step >= 6 ? (
-                  <button type="submit" className="form-button next-btn">
+                {step == steps.length ? (
+                  <button
+                    type={submit ? "submit" : "button"}
+                    onClick={() => setSubmit(true)}
+                    className="form-button next-btn"
+                  >
                     <TranslationComponent
                       keys={["send_report"]}
                       school="basisschool"
@@ -164,6 +184,9 @@ const IncidentForm = () => {
                     onClick={() =>
                       handleNext(values, { setTouched, setErrors })
                     }
+                    // onClick={() => {
+                    //   handleNext();
+                    // }}
                   >
                     Next
                   </button>

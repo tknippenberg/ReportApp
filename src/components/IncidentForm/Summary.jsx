@@ -130,7 +130,41 @@ const Summary = ({ values }) => {
         className="step-heading font-bold"
       />
       <SummaryContainer values={yourData} />
-      <SummaryContainer values={victim1} heading="Victim 1" />
+      {values.victimWho == "selft" ? (
+        <>
+          <p className="font-bold mb-3">Victim 1</p>
+          <div className="summary-container">
+            <div>
+              <TranslationComponent
+                keys={["firstname"]}
+                school="basisschool"
+                className="property-label"
+              />
+              <p className="property-value">{values?.firstname}</p>
+              <TranslationComponent
+                keys={["lastname"]}
+                school="basisschool"
+                className="property-label"
+              />
+              <p className="property-value">{values?.lastname}</p>
+              <TranslationComponent
+                keys={["gender"]}
+                school="basisschool"
+                className="property-label"
+              />
+              <p className="property-value">{values?.gender}</p>
+              <TranslationComponent
+                keys={["class"]}
+                school="basisschool"
+                className="property-label"
+              />
+              <p className="property-value">{values?.myClass}</p>
+            </div>
+          </div>
+        </>
+      ) : (
+        <SummaryContainer values={victim1} heading="Victim 1" />
+      )}
 
       {values.victims.map(
         (
@@ -177,21 +211,6 @@ const Summary = ({ values }) => {
           );
         }
       )}
-
-      {/* {values.victims.map((victim, index) => (
-        <SummaryContainer
-          key={`victim_${index}`}
-          values={[victim]}
-          heading={`Victim ${index + 2}`}
-        />
-      ))} */}
-      {/* {generateBullies(values).map((bully, index) => (
-        <SummaryContainer
-          key={`bully_${index}`}
-          values={[bully]}
-          heading={`Bully ${index + 2}`}
-        />
-      ))} */}
 
       <SummaryContainer values={bully1} heading="Bully 1" />
 
