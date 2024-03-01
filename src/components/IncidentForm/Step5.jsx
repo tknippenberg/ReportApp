@@ -20,6 +20,13 @@ const Step5 = () => {
     setFieldValue(valueName, event.target.value);
   };
 
+  const handleRemoveBully = (indexToRemove) => {
+    const updatedBullies = values.bullies.filter(
+      (victim, index) => index !== indexToRemove
+    );
+    setFieldValue("bullies", updatedBullies);
+  };
+
   const schoolType = localStorage.getItem("schoolType");
 
   return (
@@ -231,6 +238,15 @@ const Step5 = () => {
                         className="error"
                       />
                     </div>
+                    <div className="mt-3">
+                      <button
+                        type="button"
+                        className="form-button secondary"
+                        onClick={() => handleRemoveBully(index)}
+                      >
+                        <TranslationComponent keys={["remove_bully"]} school={schoolType} />
+                      </button>
+                    </div>
                   </div>
                 );
               })}
@@ -241,10 +257,7 @@ const Step5 = () => {
                 className="step-heading"
               />
               <div className="flex items-center gap-5 flex-wrap">
-                <RadioButton
-                  name="moreBullies"
-                  value="yes"
-                  onChange={(e) => {
+              <button type="button" class="form-button" onClick={(e) => {
                     push({
                       morebulliesFirstName: "",
                       morebulliesLastName: "",
@@ -252,14 +265,9 @@ const Step5 = () => {
                       bulliesClass: "",
                     });
                   }}
-                />
-                <RadioButton
-                  name="moreBullies"
-                  value="no"
-                  onChange={(e) => {
-                    handleChange2("moreBullies", e);
-                  }}
-                />
+                >
+                  <TranslationComponent keys={["add_bully"]} school={schoolType} />
+                </button>
               </div>
             </>
           )}
