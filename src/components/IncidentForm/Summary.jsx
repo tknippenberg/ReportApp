@@ -13,7 +13,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["firstname"]} school={schoolType} />
         </>
       ),
-      value: values.victimFirstName,
+      value: values.someoneElseFields[0].victimFirstName,
     },
     {
       label: (
@@ -21,7 +21,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["lastname"]} school={schoolType} />
         </>
       ),
-      value: values.victimLastName,
+      value: values.someoneElseFields[0].victimLastName,
     },
     {
       label: (
@@ -29,7 +29,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["gender"]} school={schoolType} />
         </>
       ),
-      value: values.victimGender,
+      value: values.someoneElseFields[0].victimGender,
     },
     {
       label: (
@@ -37,7 +37,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["class"]} school={schoolType} />
         </>
       ),
-      value: values.victimClass,
+      value: values.someoneElseFields[0].victimClass,
     },
   ];
 
