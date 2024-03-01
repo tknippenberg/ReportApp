@@ -29,7 +29,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["gender"]} school={schoolType} />
         </>
       ),
-      value: values.gender,
+      value: <TranslationComponent keys={[values.gender]} school={schoolType} /> ,
     },
     {
       label: (
@@ -106,18 +106,25 @@ const Summary = ({ values }) => {
                     className="property-label"
                   />
                   <p className="property-value">{morevictimLastName}</p>
+                  
                   <TranslationComponent
                     keys={["gender"]}
                     school={schoolType}
                     className="property-label"
                   />
-                  <p className="property-value">{morevictimGender}</p>
+                  <TranslationComponent
+                    keys={[morevictimGender]}
+                    school={schoolType}
+                    className="property-value"
+                  />
+
                   <TranslationComponent
                     keys={["class"]}
                     school={schoolType}
                     className="property-label"
                   />
                   <p className="property-value">{victimClass}</p>
+
                 </div>
               </div>
             </>
@@ -147,6 +154,7 @@ const Summary = ({ values }) => {
                 {index + 1}
               </p>
               <div className="summary-container">
+
                 <div key={index}>
                   <TranslationComponent
                     keys={["firstname"]}
@@ -154,24 +162,32 @@ const Summary = ({ values }) => {
                     className="property-label"
                   />
                   <p className="property-value">{morebulliesFirstName}</p>
+
                   <TranslationComponent
                     keys={["lastname"]}
                     school={schoolType}
                     className="property-label"
                   />
                   <p className="property-value">{morebulliesLastName}</p>
+
                   <TranslationComponent
                     keys={["gender"]}
                     school={schoolType}
                     className="property-label"
-                  />
-                  <p className="property-value">{morebulliesGender}</p>
+                  />  
+                  <TranslationComponent
+                    keys={[morebulliesGender]}
+                    school={schoolType}
+                    className="property-value"
+                  />     
+
                   <TranslationComponent
                     keys={["class"]}
                     school={schoolType}
                     className="property-label"
                   />
                   <p className="property-value">{morebulliesClass}</p>
+
                 </div>
               </div>
             </>
