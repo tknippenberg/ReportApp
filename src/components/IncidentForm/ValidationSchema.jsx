@@ -4,7 +4,6 @@ import TranslationComponent from "../TranslationComponent";
 const schoolType = localStorage.getItem("schoolType");
 
 export const validationSchema = Yup.object().shape({
-  location: Yup.string().required("Locatie is vereist"),
   whatHappened: Yup.string()
     .test(
       "wordCount",
@@ -57,7 +56,6 @@ export const validationSchema = Yup.object().shape({
       className="inline"
     />
   ),
-  myClass: Yup.string().required("Klasse is vereist"),
   email_address: Yup.string()
     .email("Gelieve een geldig e-mailadres in te vullen")
     .required(
