@@ -3,19 +3,21 @@ import { chevIcon } from "../assets";
 import TranslationComponent from "./TranslationComponent";
 
 const FAQ = () => {
+  const schoolType = localStorage.getItem("schoolType");
+
   // Array of objects representing questions and answers
   const faqs = [
     {
       question: (
         <>
           {" "}
-          <TranslationComponent school="basisschool" keys={["lorem"]} />
+          <TranslationComponent school={schoolType} keys={["lorem"]} />
         </>
       ),
       answer: (
         <>
           {" "}
-          <TranslationComponent school="basisschool" keys={["lorem_ipsum"]} />
+          <TranslationComponent school={schoolType} keys={["lorem_ipsum"]} />
         </>
       ),
     },
@@ -23,13 +25,13 @@ const FAQ = () => {
       question: (
         <>
           {" "}
-          <TranslationComponent school="basisschool" keys={["lorem"]} />
+          <TranslationComponent school={schoolType} keys={["lorem"]} />
         </>
       ),
       answer: (
         <>
           {" "}
-          <TranslationComponent school="basisschool" keys={["lorem_ipsum"]} />
+          <TranslationComponent school={schoolType} keys={["lorem_ipsum"]} />
         </>
       ),
     },
@@ -37,13 +39,13 @@ const FAQ = () => {
       question: (
         <>
           {" "}
-          <TranslationComponent school="basisschool" keys={["lorem"]} />
+          <TranslationComponent school={schoolType} keys={["lorem"]} />
         </>
       ),
       answer: (
         <>
           {" "}
-          <TranslationComponent school="basisschool" keys={["lorem_ipsum"]} />
+          <TranslationComponent school={schoolType} keys={["lorem_ipsum"]} />
         </>
       ),
     },
@@ -51,13 +53,13 @@ const FAQ = () => {
       question: (
         <>
           {" "}
-          <TranslationComponent school="basisschool" keys={["lorem"]} />
+          <TranslationComponent school={schoolType} keys={["lorem"]} />
         </>
       ),
       answer: (
         <>
           {" "}
-          <TranslationComponent school="basisschool" keys={["lorem_ipsum"]} />
+          <TranslationComponent school={schoolType} keys={["lorem_ipsum"]} />
         </>
       ),
     },
@@ -74,7 +76,7 @@ const FAQ = () => {
   return (
     <div className="faq-wrapper">
       <TranslationComponent
-        school="basisschool"
+        school={schoolType}
         keys={["frequently_asked_questions"]}
         className="heading"
       />
