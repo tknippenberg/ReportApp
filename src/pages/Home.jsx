@@ -29,7 +29,7 @@ const Home = () => {
       <AppQuestions />
       <FAQ />
       {isLoading ? (
-        <p>Loading...</p>
+        <p></p>
       ) : (
         <>
           {isSchoolValid ? (
