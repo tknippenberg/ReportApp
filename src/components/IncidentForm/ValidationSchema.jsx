@@ -74,27 +74,6 @@ export const validationSchema = Yup.object().shape({
         className="inline"
       />
     ),
-  bullyFirstName: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_first_name"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
-  bullyLastName: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_last_name"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
-  bullyGender: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_gender"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
 
   victims: Yup.array().of(
     Yup.object().shape({
@@ -146,5 +125,9 @@ export const validationSchema = Yup.object().shape({
         />
       ),
     })
-  ),
+  ).min(1, <TranslationComponent
+    keys={["validation_minimum_1_bully"]}
+    school={schoolType}
+    className="inline"
+  />)
 });
