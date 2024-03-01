@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   whatHappened: "",
-  date: "",
+  date: new Date().toISOString().split('T')[0], // Set to today's date
   firstname: "",
   lastname: "",
   gender: "",
@@ -19,18 +19,10 @@ const initialValues = {
   email_address: "",
   role: "student",
   victimWho: "yes",
-  victimFirstName: "",
-  victimLastName: "",
-  victimGender: "",
-  victimClass: "",
-  bullyFirstName: "",
-  bullyLastName: "",
-  bullyGender: "",
   totalVictims: 0,
-  totalBullies: 0,
+  totalBullies: 1,
   victims: [],
   bullies: [],
-  someoneElseFields: [],
 };
 
 const IncidentForm = () => {
@@ -61,7 +53,7 @@ const IncidentForm = () => {
               "role",
             ].includes(field);
           } else if (step === 2) {
-            return ["someoneElseFields", "victims"].includes(field);
+            return ["victims"].includes(field);
           }
           else if (step === 3) {
             // TODO: check for at least 1 bully
