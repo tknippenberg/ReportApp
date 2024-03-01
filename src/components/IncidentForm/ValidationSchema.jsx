@@ -14,6 +14,15 @@ export const validationSchema = Yup.object().shape({
       />,
       (value) => value.trim().split(/\s+/).length >= 5
     )
+    .test(
+      "wordCount",
+      <TranslationComponent
+        keys={["validation_max_500_words"]}
+        school={schoolType}
+        className="inline"
+      />,
+      (value) => value.trim().split(/\s+/).length <= 500
+    )
     .required(
       <TranslationComponent
         keys={["validation_min_5_words"]}
