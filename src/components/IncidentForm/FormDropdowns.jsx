@@ -17,7 +17,7 @@ export const LocationDropdown = () => {
   return (
     <Field as="select" name="location" className="select-dropdown">
       {locations.map((location) => (
-        <option key={location.id} value={location.name}>
+        <option key={location.id} value={location.id}>
           {location.name}
         </option>
       ))}
@@ -41,7 +41,7 @@ export const ClassesDropdown = ({ name }) => {
   return (
     <Field as="select" name={name} className="select-dropdown">
       {classes.map((schoolClass) => (
-        <option key={schoolClass.id} value={schoolClass.name}>
+        <option key={schoolClass.id} value={schoolClass.id}>
           {schoolClass.name}
         </option>
       ))}
