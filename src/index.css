@@ -19,6 +19,10 @@ body {
 .justify-between {
   justify-content: space-between;
 }
+.justify-center {
+  justify-content: center;
+}
+
 .items-center {
   align-items: center;
 }
@@ -68,6 +72,7 @@ body {
   right: 0;
   padding: 1em 2em;
   display: none;
+  z-index: 99;
 }
 
 .navbar-options-div a {
@@ -519,4 +524,8 @@ label {
 .px-9 {
   padding-left: 5em;
   padding-right: 5em;
+}
+
+.gap-4 {
+  gap: 1em;
 }

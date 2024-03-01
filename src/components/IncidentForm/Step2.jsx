@@ -7,7 +7,7 @@ import { ClassesDropdown } from "./FormDropdowns";
 
 const Step2 = () => {
   const { values, setFieldValue } = useFormikContext();
-  const [isStudent, setIsStudent] = useState(false);
+  const [isStudent, setIsStudent] = useState(true);
 
   const handleChange = (valueName, event) => {
     setFieldValue(valueName, event.target.value);

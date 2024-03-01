@@ -16,6 +16,19 @@ const Step3 = () => {
     }
   };
 
+  const handleChange3 = (field, index, e) => {
+    setFieldValue(`victims.${index}.${field}`, e.target.value);
+    setFieldValue("totalVictims", index);
+  };
+
+  const handleChange2 = (valueName, event) => {
+    setFieldValue(valueName, event.target.value);
+  };
+
+  const addVictim = (index) => {
+    setFieldValue("totalVictims", index);
+  };
+
   return (
     <>
       <div className="step-container">
@@ -157,7 +170,7 @@ const Step3 = () => {
                     <div className="flex items-center gap-5 flex-wrap">
                       <RadioButton
                         name="victimWho"
-                        value="selft"
+                        value="yes"
                         onChange={(e) => {
                           remove({
                             victimFirstName: "",
@@ -171,7 +184,7 @@ const Step3 = () => {
                       />
                       <RadioButton
                         name="victimWho"
-                        value="someone_else"
+                        value="no"
                         onChange={(e) => {
                           handleChange("victimWho", e);
                           push({
@@ -190,7 +203,167 @@ const Step3 = () => {
             );
           }}
         />
+        <FieldArray name="victims">
+          {({ push, remove, form: { errors, touched } }) => (
+            <>
+              {values.victims.map((victim, index) => {
+                let errorMsgs = null;
+                if (
+                  errors.victims &&
+                  errors.victims[index] &&
+                  touched.victims
+                ) {
+                  errorMsgs = {
+                    morevictimFirstName:
+                      errors.victims[index].morevictimFirstName,
+                    morevictimLastName:
+                      errors.victims[index].morevictimLastName,
+                    morevictimGender: errors.victims[index].morevictimGender,
+                  };
+                }
+                return (
+                  <div key={index} className="mb-3 more-victims-div mt-5">
+                    <p className="victim-heading font-bold mb-3">
+                      <TranslationComponent
+                        keys={["victim"]}
+                        school="basisschool"
+                        className="inline"
+                      />{" "}
+                      {index + 1}
+                    </p>
+                    <div>
+                      <label htmlFor={`morevictimFirstName${index}`}>
+                        <TranslationComponent
+                          keys={["firstname"]}
+                          school="basisschool"
+                        />
+                      </label>
+                      <Field
+                        type="text"
+                        name={`victims.${index}.morevictimFirstName`}
+                        className="input-field"
+                        placeholder="Voer uw voornaam in"
+                      />
+                      {errorMsgs?.morevictimFirstName ? (
+                        <div className="error">
+                          {errorMsgs.morevictimFirstName}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="mt-3">
+                      <label htmlFor={`morevictimLastName${index}`}>
+                        <TranslationComponent
+                          keys={["lastname"]}
+                          school="basisschool"
+                        />
+                      </label>
+                      <Field
+                        type="text"
+                        name={`victims.${index}.morevictimLastName`}
+                        className="input-field"
+                        placeholder="Voer uw achternaam in"
+                      />
+                      {errorMsgs?.morevictimLastName ? (
+                        <div className="error">
+                          {errorMsgs.morevictimLastName}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="mt-3">
+                      <label>
+                        <TranslationComponent
+                          keys={["gender"]}
+                          school="basisschool"
+                        />
+                      </label>
+                      <div className="flex items-center gap-5 flex-wrap">
+                        <RadioButton
+                          name={`victims.${index}.morevictimGender`}
+                          value="male"
+                          onChange={(e) =>
+                            handleChange3("morevictimGender", index, e)
+                          }
+                        />
+                        <RadioButton
+                          name={`victims.${index}.morevictimGender`}
+                          value="female"
+                          onChange={(e) =>
+                            handleChange3("morevictimGender", index, e)
+                          }
+                        />
+                        <RadioButton
+                          name={`victims.${index}.morevictimGender`}
+                          value="other"
+                          onChange={(e) =>
+                            handleChange3("morevictimGender", index, e)
+                          }
+                        />
+                      </div>
+                      {errorMsgs?.morevictimGender ? (
+                        <div className="error">
+                          {errorMsgs.morevictimGender}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="mt-3">
+                      <label htmlFor={`class${index}`}>
+                        <TranslationComponent
+                          keys={["class"]}
+                          school="basisschool"
+                        />
+                      </label>
+                      <ClassesDropdown
+                        name={`victims.${index}.morevictimClass`}
+                      />
+                      <ErrorMessage
+                        name={`victims.${index}.morevictimClass`}
+                        component="div"
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+
+              <TranslationComponent
+                keys={["more_victims"]}
+                school="basisschool"
+                className="step-heading"
+              />
+              <div className="flex items-center gap-5 flex-wrap">
+                <RadioButton
+                  name="moreVictims"
+                  value="yes"
+                  onChange={(e) => {
+                    push({
+                      morevictimFirstName: "",
+                      morevictimLastName: "",
+                      morevictimGender: "",
+                      victimClass: "",
+                    });
+                  }}
+                />
+                <RadioButton
+                  name="moreVictims"
+                  value="no"
+                  onChange={(e) => {
+                    handleChange2("moreVictims", e);
+                  }}
+                />
+              </div>
+            </>
+          )}
+        </FieldArray>
       </div>
+      {/* <div className="step-container"> */}
+
+      {/* </div> */}
     </>
   );
 };

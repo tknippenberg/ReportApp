@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -18,8 +18,8 @@ const initialValues = {
   lastname: "",
   gender: "",
   email_address: "",
-  role: "",
-  victimWho: "selft",
+  role: "student",
+  victimWho: "yes",
   victimFirstName: "",
   victimLastName: "",
   victimGender: "",
@@ -34,17 +34,14 @@ const initialValues = {
 };
 
 const IncidentForm = () => {
-  const [step, setStep] = useState(0);
-  const Navigate = useNavigate();
+  const [step, setStep] = useState(1);
   const [submit, setSubmit] = useState(false);
+  const [schoolName, setSchoolName] = useState("");
+  const Navigate = useNavigate();
 
   const handlePrev = () => {
     step >= 1 ? setStep(step - 1) : setStep(0);
   };
-
-  // const handleNext = () => {
-  //   setStep(step + 1);
-  // };
 
   const handleNext = (values, { setTouched, setErrors }) => {
     try {
@@ -63,16 +60,22 @@ const IncidentForm = () => {
               "role",
             ].includes(field);
           } else if (step === 2) {
-            return ["someoneElseFields"].includes(field);
-          } else if (step === 3) {
-            return ["victims"].includes(field);
-          } else if (step === 4) {
-            return ["bullyFirstName", "bullyLastName", "bullyGender"].includes(
-              field
-            );
-          } else if (step === 5) {
-            return ["bullies"].includes(field);
+            return ["someoneElseFields", "victims"].includes(field);
           }
+          // else if (step === 3) {
+          //   return ["victims"].includes(field);
+          // }
+          else if (step === 3) {
+            return [
+              "bullyFirstName",
+              "bullyLastName",
+              "bullyGender",
+              "bullies",
+            ].includes(field);
+          }
+          // else if (step === 5) {
+          //   return ["bullies"].includes(field);
+          // }
           return true; // Include all fields if not in a specific step
         }
       );
@@ -121,9 +124,9 @@ const IncidentForm = () => {
     <Step1 />,
     <Step2 />,
     <Step3 />,
-    <Step4 />,
+    // <Step4 />,
     <Step5 />,
-    <Step6 />,
+    // <Step6 />,
   ];
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -131,6 +134,29 @@ const IncidentForm = () => {
     console.log(values);
     Navigate("/success");
   };
+
+  const getSchoolName = async (id) => {
+    try {
+      const response = await fetch(
+        `https://wjhulzebosch.nl/Avarix/MeldboxApi/School/${id}`
+      );
+      const data = await response.json();
+      console.log(data);
+      if (data.error) {
+        setSchoolName("false");
+      } else {
+        setSchoolName(data.schoolName);
+      }
+    } catch (error) {
+      console.error("Error checking school validity:", error);
+      setSchoolName(false);
+    }
+  };
+
+  useEffect(() => {
+    const id = localStorage.getItem("schoolId");
+    getSchoolName(id);
+  }, []);
 
   return (
     <div className="form-container">
@@ -142,11 +168,14 @@ const IncidentForm = () => {
         {({ isSubmitting, isValid, values, setErrors, setTouched }) => (
           <Form>
             <div className="form-progress-container">
-              <TranslationComponent
-                school="basisschool"
-                keys={["incident_report_form"]}
-                className="form-heading"
-              />
+              <div className="flex justify-center gap-4">
+                <TranslationComponent
+                  school="basisschool"
+                  keys={["incident_report_form"]}
+                  className="form-heading"
+                />
+                <p className="form-heading">{schoolName}</p>
+              </div>
               <div className="progress-bar">
                 <div
                   className="progress"
@@ -163,7 +192,11 @@ const IncidentForm = () => {
                   onClick={handlePrev}
                   className="form-button previous-btn"
                 >
-                  Previous
+                  <TranslationComponent
+                    keys={["previous"]}
+                    school="basisschool"
+                    className="inline"
+                  />
                 </button>
                 {step == steps.length ? (
                   <button
@@ -188,7 +221,11 @@ const IncidentForm = () => {
                     //   handleNext();
                     // }}
                   >
-                    Next
+                    <TranslationComponent
+                      keys={["next"]}
+                      school="basisschool"
+                      className="inline"
+                    />
                   </button>
                 )}
               </div>

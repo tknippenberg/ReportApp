@@ -1,50 +1,165 @@
 import * as Yup from "yup";
+import TranslationComponent from "../TranslationComponent";
 
 export const validationSchema = Yup.object().shape({
   whatHappened: Yup.string()
     .test(
       "wordCount",
-      "Please write at least 5 words",
+      <TranslationComponent
+        keys={["validation_min_5_words"]}
+        school="basisschool"
+        className="inline"
+      />,
       (value) => value.trim().split(/\s+/).length >= 5
     )
-    .required("Please Write at least 5 words"),
-  date: Yup.string().required("Date is required"),
-  firstname: Yup.string().required("First Name is required"),
-  lastname: Yup.string().required("Last Name is required"),
-  role: Yup.string().required("Role is required"),
-  gender: Yup.string().required("Gender is required"),
+    .required(
+      <TranslationComponent
+        keys={["validation_min_5_words"]}
+        school="basisschool"
+        className="inline"
+      />
+    ),
+  date: Yup.string().required(
+    <TranslationComponent
+      keys={["validation_date"]}
+      school="basisschool"
+      className="inline"
+    />
+  ),
+  firstname: Yup.string().required(
+    <TranslationComponent
+      keys={["validation_first_name"]}
+      school="basisschool"
+      className="inline"
+    />
+  ),
+  lastname: Yup.string().required(
+    <TranslationComponent
+      keys={["validation_last_name"]}
+      school="basisschool"
+      className="inline"
+    />
+  ),
+  role: Yup.string().required(
+    <TranslationComponent
+      keys={["validation_role"]}
+      school="basisschool"
+      className="inline"
+    />
+  ),
+  gender: Yup.string().required(
+    <TranslationComponent
+      keys={["validation_gender"]}
+      school="basisschool"
+      className="inline"
+    />
+  ),
   email_address: Yup.string()
-    .email("Enter a valid email address")
-    .required("Email Address is required"),
-  // Below are the 3 rules that I need to add dynamically
-  // victimFirstName: Yup.string().required("First Name is required"),
-  // victimLastName: Yup.string().required("Last Name is required"),
-  // victimGender: Yup.string().required("Gender is required"),
-  bullyFirstName: Yup.string().required("First Name is required"),
-  bullyLastName: Yup.string().required("Last Name is required"),
-  bullyGender: Yup.string().required("Gender is required"),
+    .email("Gelieve een geldig e-mailadres in te vullen")
+    .required(
+      <TranslationComponent
+        keys={["validation_email_address"]}
+        school="basisschool"
+        className="inline"
+      />
+    ),
+  bullyFirstName: Yup.string().required(
+    <TranslationComponent
+      keys={["validation_first_name"]}
+      school="basisschool"
+      className="inline"
+    />
+  ),
+  bullyLastName: Yup.string().required(
+    <TranslationComponent
+      keys={["validation_last_name"]}
+      school="basisschool"
+      className="inline"
+    />
+  ),
+  bullyGender: Yup.string().required(
+    <TranslationComponent
+      keys={["validation_gender"]}
+      school="basisschool"
+      className="inline"
+    />
+  ),
 
   victims: Yup.array().of(
     Yup.object().shape({
-      morevictimFirstName: Yup.string().required("First name is required"),
-      morevictimLastName: Yup.string().required("Last name is required"),
-      morevictimGender: Yup.string().required("Gender is required"),
+      morevictimFirstName: Yup.string().required(
+        <TranslationComponent
+          keys={["validation_first_name"]}
+          school="basisschool"
+          className="inline"
+        />
+      ),
+      morevictimLastName: Yup.string().required(
+        <TranslationComponent
+          keys={["validation_last_name"]}
+          school="basisschool"
+          className="inline"
+        />
+      ),
+      morevictimGender: Yup.string().required(
+        <TranslationComponent
+          keys={["validation_gender"]}
+          school="basisschool"
+          className="inline"
+        />
+      ),
     })
   ),
 
   bullies: Yup.array().of(
     Yup.object().shape({
-      morebulliesFirstName: Yup.string().required("First name is required"),
-      morebulliesLastName: Yup.string().required("Last name is required"),
-      morebulliesGender: Yup.string().required("Gender is required"),
+      morebulliesFirstName: Yup.string().required(
+        <TranslationComponent
+          keys={["validation_first_name"]}
+          school="basisschool"
+          className="inline"
+        />
+      ),
+      morebulliesLastName: Yup.string().required(
+        <TranslationComponent
+          keys={["validation_last_name"]}
+          school="basisschool"
+          className="inline"
+        />
+      ),
+      morebulliesGender: Yup.string().required(
+        <TranslationComponent
+          keys={["validation_gender"]}
+          school="basisschool"
+          className="inline"
+        />
+      ),
     })
   ),
 
   someoneElseFields: Yup.array().of(
     Yup.object().shape({
-      victimFirstName: Yup.string().required("First Name is required"),
-      victimLastName: Yup.string().required("Last Name is required"),
-      victimGender: Yup.string().required("Gender is required"),
+      victimFirstName: Yup.string().required(
+        <TranslationComponent
+          keys={["validation_first_name"]}
+          school="basisschool"
+          className="inline"
+        />
+      ),
+      victimLastName: Yup.string().required(
+        <TranslationComponent
+          keys={["validation_first_name"]}
+          school="basisschool"
+          className="inline"
+        />
+      ),
+      victimGender: Yup.string().required(
+        <TranslationComponent
+          keys={["validation_gender"]}
+          school="basisschool"
+          className="inline"
+        />
+      ),
     })
   ),
 });
