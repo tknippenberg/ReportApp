@@ -364,7 +364,7 @@ const Step3 = () => {
               })}
 
               <div className="flex items-center gap-5 flex-wrap">
-                <button type="button" class="form-button" onClick={(e) => {
+                <button type="button" className="form-button" onClick={(e) => {
                     push({
                       morevictimFirstName: "",
                       morevictimLastName: "",

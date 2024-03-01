@@ -43,7 +43,7 @@ const IncidentForm = () => {
   const schoolName = localStorage.getItem("schoolName");
 
   const handlePrev = () => {
-    step >= 1 ? setStep(step - 1) : setStep(2);
+    step >= 1 ? setStep(step - 1) : setStep(0);
   };
 
   const handleNext = (values, { setTouched, setErrors }) => {
