@@ -15,6 +15,7 @@ const SchoolComponent = () => {
       } else {
         setIsValidSchool(true);
         localStorage.setItem("schoolId", id); // Only set the school ID in localStorage if it's valid
+        localStorage.setItem("schoolType", data.schoolType);
       }
     } catch (error) {
       console.error("Error checking school validity:", error);

@@ -29,6 +29,8 @@ const Step3 = () => {
     setFieldValue("totalVictims", index);
   };
 
+  const schoolType = localStorage.getItem("schoolType");
+
   return (
     <>
       <div className="step-container">
@@ -59,7 +61,7 @@ const Step3 = () => {
                         <label htmlFor="victimFirstName">
                           <TranslationComponent
                             keys={["firstname"]}
-                            school="basisschool"
+                            school={schoolType}
                           />
                         </label>
                         <Field
@@ -80,7 +82,7 @@ const Step3 = () => {
                         <label htmlFor="victimLastName">
                           <TranslationComponent
                             keys={["lastname"]}
-                            school="basisschool"
+                            school={schoolType}
                           />
                         </label>
                         <Field
@@ -101,7 +103,7 @@ const Step3 = () => {
                         <label>
                           <TranslationComponent
                             keys={["gender"]}
-                            school="basisschool"
+                            school={schoolType}
                           />
                         </label>
                         <div className="flex items-center gap-5 flex-wrap">
@@ -147,7 +149,7 @@ const Step3 = () => {
                           {" "}
                           <TranslationComponent
                             keys={["class"]}
-                            school="basisschool"
+                            school={schoolType}
                           />
                         </label>
                         <ClassesDropdown name="victimClass" />
@@ -164,7 +166,7 @@ const Step3 = () => {
                   <div className="whoVictimContainer">
                     <TranslationComponent
                       keys={["are_you_victim"]}
-                      school="basisschool"
+                      school={schoolType}
                       className="step-heading"
                     />
                     <div className="flex items-center gap-5 flex-wrap">
@@ -226,7 +228,7 @@ const Step3 = () => {
                     <p className="victim-heading font-bold mb-3">
                       <TranslationComponent
                         keys={["victim"]}
-                        school="basisschool"
+                        school={schoolType}
                         className="inline"
                       />{" "}
                       {index + 1}
@@ -235,7 +237,7 @@ const Step3 = () => {
                       <label htmlFor={`morevictimFirstName${index}`}>
                         <TranslationComponent
                           keys={["firstname"]}
-                          school="basisschool"
+                          school={schoolType}
                         />
                       </label>
                       <Field
@@ -256,7 +258,7 @@ const Step3 = () => {
                       <label htmlFor={`morevictimLastName${index}`}>
                         <TranslationComponent
                           keys={["lastname"]}
-                          school="basisschool"
+                          school={schoolType}
                         />
                       </label>
                       <Field
@@ -277,7 +279,7 @@ const Step3 = () => {
                       <label>
                         <TranslationComponent
                           keys={["gender"]}
-                          school="basisschool"
+                          school={schoolType}
                         />
                       </label>
                       <div className="flex items-center gap-5 flex-wrap">
@@ -315,7 +317,7 @@ const Step3 = () => {
                       <label htmlFor={`class${index}`}>
                         <TranslationComponent
                           keys={["class"]}
-                          school="basisschool"
+                          school={schoolType}
                         />
                       </label>
                       <ClassesDropdown
@@ -333,7 +335,7 @@ const Step3 = () => {
 
               <TranslationComponent
                 keys={["more_victims"]}
-                school="basisschool"
+                school={schoolType}
                 className="step-heading"
               />
               <div className="flex items-center gap-5 flex-wrap">

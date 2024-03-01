@@ -13,17 +13,19 @@ const Step2 = () => {
     setFieldValue(valueName, event.target.value);
   };
 
+  const schoolType = localStorage.getItem("schoolType");
+
   return (
     <>
       <div className="step-container">
         <TranslationComponent
           keys={["enter_your_data"]}
-          school="basisschool"
+          school={schoolType}
           className="step-heading"
         />
         <div>
           <label htmlFor="firstname">
-            <TranslationComponent keys={["firstname"]} school="basisschool" />
+            <TranslationComponent keys={["firstname"]} school={schoolType} />
           </label>
           <Field
             type="text"
@@ -35,7 +37,7 @@ const Step2 = () => {
         </div>
         <div className="mt-3">
           <label htmlFor="lastname">
-            <TranslationComponent keys={["lastname"]} school="basisschool" />
+            <TranslationComponent keys={["lastname"]} school={schoolType} />
           </label>
           <Field
             type="text"
@@ -47,7 +49,7 @@ const Step2 = () => {
         </div>
         <div className="mt-3">
           <label>
-            <TranslationComponent keys={["gender"]} school="basisschool" />
+            <TranslationComponent keys={["gender"]} school={schoolType} />
           </label>
           <div className="flex items-center gap-5 flex-wrap">
             <RadioButton
@@ -72,7 +74,7 @@ const Step2 = () => {
           <label htmlFor="email_address">
             <TranslationComponent
               keys={["email_address"]}
-              school="basisschool"
+              school={schoolType}
             />
           </label>
           <Field
@@ -89,7 +91,7 @@ const Step2 = () => {
         </div>
         <div className="mt-3">
           <label>
-            <TranslationComponent keys={["role"]} school="basisschool" />
+            <TranslationComponent keys={["role"]} school={schoolType} />
           </label>
           <div className="flex items-center gap-5 flex-wrap">
             <RadioButton
@@ -131,7 +133,7 @@ const Step2 = () => {
           <div className="mt-3">
             <label htmlFor="class">
               {" "}
-              <TranslationComponent keys={["class"]} school="basisschool" />
+              <TranslationComponent keys={["class"]} school={schoolType} />
             </label>
             <ClassesDropdown name="myClass" />
             <ErrorMessage name="myClass" component="div" className="error" />

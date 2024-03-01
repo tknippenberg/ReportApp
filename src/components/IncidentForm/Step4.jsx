@@ -20,6 +20,8 @@ const Step4 = () => {
     setFieldValue("totalVictims", index);
   };
 
+  const schoolType = localStorage.getItem("schoolType");
+
   return (
     <div className="step-container">
       <FieldArray name="victims">
@@ -44,7 +46,7 @@ const Step4 = () => {
                     <label htmlFor={`morevictimFirstName${index}`}>
                       <TranslationComponent
                         keys={["firstname"]}
-                        school="basisschool"
+                        school={schoolType}
                       />
                     </label>
                     <Field
@@ -65,7 +67,7 @@ const Step4 = () => {
                     <label htmlFor={`morevictimLastName${index}`}>
                       <TranslationComponent
                         keys={["lastname"]}
-                        school="basisschool"
+                        school={schoolType}
                       />
                     </label>
                     <Field
@@ -86,7 +88,7 @@ const Step4 = () => {
                     <label>
                       <TranslationComponent
                         keys={["gender"]}
-                        school="basisschool"
+                        school={schoolType}
                       />
                     </label>
                     <div className="flex items-center gap-5 flex-wrap">
@@ -122,7 +124,7 @@ const Step4 = () => {
                     <label htmlFor={`class${index}`}>
                       <TranslationComponent
                         keys={["class"]}
-                        school="basisschool"
+                        school={schoolType}
                       />
                     </label>
                     <ClassesDropdown
@@ -140,7 +142,7 @@ const Step4 = () => {
 
             <TranslationComponent
               keys={["more_victims"]}
-              school="basisschool"
+              school={schoolType}
               className="step-heading"
             />
             <div className="flex items-center gap-5 flex-wrap">

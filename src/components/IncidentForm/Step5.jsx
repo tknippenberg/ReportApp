@@ -20,19 +20,21 @@ const Step5 = () => {
     setFieldValue(valueName, event.target.value);
   };
 
+  const schoolType = localStorage.getItem("schoolType");
+
   return (
     <>
       <div className="step-container">
         <TranslationComponent
           keys={["who_was_bully"]}
-          school="basisschool"
+          school={schoolType}
           className="step-heading"
         />
 
         <div>
           <div>
             <label htmlFor="bullyFirstName">
-              <TranslationComponent keys={["firstname"]} school="basisschool" />
+              <TranslationComponent keys={["firstname"]} school={schoolType} />
             </label>
             <Field
               type="text"
@@ -48,7 +50,7 @@ const Step5 = () => {
           </div>
           <div className="mt-3">
             <label htmlFor="bullyLastName">
-              <TranslationComponent keys={["lastname"]} school="basisschool" />
+              <TranslationComponent keys={["lastname"]} school={schoolType} />
             </label>
             <Field
               type="text"
@@ -64,7 +66,7 @@ const Step5 = () => {
           </div>
           <div className="mt-3">
             <label>
-              <TranslationComponent keys={["gender"]} school="basisschool" />
+              <TranslationComponent keys={["gender"]} school={schoolType} />
             </label>
             <div className="flex items-center gap-5 flex-wrap">
               <RadioButton
@@ -92,7 +94,7 @@ const Step5 = () => {
           <div className="mt-3">
             <label htmlFor="class">
               {" "}
-              <TranslationComponent keys={["class"]} school="basisschool" />
+              <TranslationComponent keys={["class"]} school={schoolType} />
             </label>
             <ClassesDropdown name="bullyClass" />
             <ErrorMessage name="bullyClass" component="div" className="error" />
@@ -121,7 +123,7 @@ const Step5 = () => {
                     <p className="victim-heading font-bold mb-3">
                       <TranslationComponent
                         keys={["bully"]}
-                        school="basisschool"
+                        school={schoolType}
                         className="inline"
                       />{" "}
                       {index + 1}
@@ -130,7 +132,7 @@ const Step5 = () => {
                       <label htmlFor={`morebulliesFirstName${index}`}>
                         <TranslationComponent
                           keys={["firstname"]}
-                          school="basisschool"
+                          school={schoolType}
                         />
                       </label>
                       <Field
@@ -151,7 +153,7 @@ const Step5 = () => {
                       <label htmlFor={`morebulliesLastName${index}`}>
                         <TranslationComponent
                           keys={["lastname"]}
-                          school="basisschool"
+                          school={schoolType}
                         />
                       </label>
                       <Field
@@ -172,7 +174,7 @@ const Step5 = () => {
                       <label>
                         <TranslationComponent
                           keys={["gender"]}
-                          school="basisschool"
+                          school={schoolType}
                         />
                       </label>
                       <div className="flex items-center gap-5 flex-wrap">
@@ -210,7 +212,7 @@ const Step5 = () => {
                       <label htmlFor={`class${index}`}>
                         <TranslationComponent
                           keys={["class"]}
-                          school="basisschool"
+                          school={schoolType}
                         />
                       </label>
                       <ClassesDropdown
@@ -228,7 +230,7 @@ const Step5 = () => {
 
               <TranslationComponent
                 keys={["more_bullies"]}
-                school="basisschool"
+                school={schoolType}
                 className="step-heading"
               />
               <div className="flex items-center gap-5 flex-wrap">

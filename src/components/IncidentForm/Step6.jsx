@@ -16,6 +16,8 @@ const Step6 = () => {
     setFieldValue(valueName, event.target.value);
   };
 
+  const schoolType = localStorage.getItem("schoolType");
+
   return (
     <div className="step-container">
       <FieldArray name="bullies">
@@ -41,7 +43,7 @@ const Step6 = () => {
                     <label htmlFor={`morebulliesFirstName${index}`}>
                       <TranslationComponent
                         keys={["firstname"]}
-                        school="basisschool"
+                        school={schoolType}
                       />
                     </label>
                     <Field
@@ -62,7 +64,7 @@ const Step6 = () => {
                     <label htmlFor={`morebulliesLastName${index}`}>
                       <TranslationComponent
                         keys={["lastname"]}
-                        school="basisschool"
+                        school={schoolType}
                       />
                     </label>
                     <Field
@@ -83,7 +85,7 @@ const Step6 = () => {
                     <label>
                       <TranslationComponent
                         keys={["gender"]}
-                        school="basisschool"
+                        school={schoolType}
                       />
                     </label>
                     <div className="flex items-center gap-5 flex-wrap">
@@ -119,7 +121,7 @@ const Step6 = () => {
                     <label htmlFor={`class${index}`}>
                       <TranslationComponent
                         keys={["class"]}
-                        school="basisschool"
+                        school={schoolType}
                       />
                     </label>
                     <ClassesDropdown
@@ -137,7 +139,7 @@ const Step6 = () => {
 
             <TranslationComponent
               keys={["more_bullies"]}
-              school="basisschool"
+              school={schoolType}
               className="step-heading"
             />
             <div className="flex items-center gap-5 flex-wrap">

@@ -21,11 +21,13 @@ const Step1 = () => {
     setFieldValue("whatHappened", event.target.value);
   };
 
+  const schoolType = localStorage.getItem("schoolType");
+
   return (
     <div className="step-container">
       <TranslationComponent
         keys={["incident_report_form_intro"]}
-        school="basisschool"
+        school={schoolType}
         className="step-heading"
       />
       <div>
@@ -35,14 +37,14 @@ const Step1 = () => {
       </div>
       <div className="mt-3">
         <label htmlFor="datetime">
-          <TranslationComponent keys={["when"]} school="basisschool" />
+          <TranslationComponent keys={["when"]} school={schoolType} />
         </label>
         <Field type="date" name="date" className="input-field dateField" />
         <ErrorMessage name="date" component="div" className="error" />
       </div>
       <div className="mt-3">
         <label htmlFor="whatHappened">
-          <TranslationComponent keys={["what_happened"]} school="basisschool" />
+          <TranslationComponent keys={["what_happened"]} school={schoolType} />
         </label>
         <Field
           as="textarea"
