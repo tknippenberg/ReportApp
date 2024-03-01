@@ -138,30 +138,4 @@ export const validationSchema = Yup.object().shape({
       ),
     })
   ),
-
-  someoneElseFields: Yup.array().of(
-    Yup.object().shape({
-      victimFirstName: Yup.string().required(
-        <TranslationComponent
-          keys={["validation_first_name"]}
-          school={schoolType}
-          className="inline"
-        />
-      ),
-      victimLastName: Yup.string().required(
-        <TranslationComponent
-          keys={["validation_first_name"]}
-          school={schoolType}
-          className="inline"
-        />
-      ),
-      victimGender: Yup.string().required(
-        <TranslationComponent
-          keys={["validation_gender"]}
-          school={schoolType}
-          className="inline"
-        />
-      ),
-    })
-  ),
 });
