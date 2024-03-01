@@ -34,7 +34,7 @@ const initialValues = {
 };
 
 const IncidentForm = () => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const [submit, setSubmit] = useState(false);
   const [schoolName, setSchoolName] = useState("");
   const Navigate = useNavigate();
