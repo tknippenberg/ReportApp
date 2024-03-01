@@ -6,76 +6,6 @@ import { generateBullies, generateVictims } from "../../utils/FormData";
 const Summary = ({ values }) => {
   const schoolType = localStorage.getItem("schoolType");
 
-  const victim1 = [
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["firstname"]} school={schoolType} />
-        </>
-      ),
-      value: values.someoneElseFields[0].victimFirstName,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["lastname"]} school={schoolType} />
-        </>
-      ),
-      value: values.someoneElseFields[0].victimLastName,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["gender"]} school={schoolType} />
-        </>
-      ),
-      value: values.someoneElseFields[0].victimGender,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["class"]} school={schoolType} />
-        </>
-      ),
-      value: values.someoneElseFields[0].victimClass,
-    },
-  ];
-
-  const bully1 = [
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["firstname"]} school={schoolType} />
-        </>
-      ),
-      value: values.bullyFirstName,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["lastname"]} school={schoolType} />
-        </>
-      ),
-      value: values.bullyLastName,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["gender"]} school={schoolType} />
-        </>
-      ),
-      value: values.bullyGender,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["class"]} school={schoolType} />
-        </>
-      ),
-      value: values.bullyClass,
-    },
-  ];
-
   const yourData = [
     {
       label: (
@@ -92,6 +22,14 @@ const Summary = ({ values }) => {
         </>
       ),
       value: values.lastname,
+    },
+    {
+      label: (
+        <>
+          <TranslationComponent keys={["gender"]} school={schoolType} />
+        </>
+      ),
+      value: values.gender,
     },
     {
       label: (
@@ -132,56 +70,7 @@ const Summary = ({ values }) => {
         className="step-heading font-bold"
       />
       <SummaryContainer values={yourData} showNumber={false} />
-      {values.victimWho == "yes" ? (
-        <>
-          <p className="font-bold mb-3">
-            {" "}
-            <TranslationComponent
-              keys={["victim"]}
-              school={schoolType}
-              className="inline"
-            />{" "}
-            1
-          </p>
-          <div className="summary-container">
-            <div>
-              <TranslationComponent
-                keys={["firstname"]}
-                school={schoolType}
-                className="property-label"
-              />
-              <p className="property-value">{values?.firstname}</p>
-              <TranslationComponent
-                keys={["lastname"]}
-                school={schoolType}
-                className="property-label"
-              />
-              <p className="property-value">{values?.lastname}</p>
-              <TranslationComponent
-                keys={["gender"]}
-                school={schoolType}
-                className="property-label"
-              />
-              <p className="property-value">{values?.gender}</p>
-              <TranslationComponent
-                keys={["class"]}
-                school={schoolType}
-                className="property-label"
-              />
-              <p className="property-value">{values?.myClass}</p>
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <SummaryContainer
-            values={victim1}
-            heading="victim"
-            showNumber={true}
-          />
-        </>
-      )}
-
+      
       {values.victims.map(
         (
           {
@@ -201,7 +90,7 @@ const Summary = ({ values }) => {
                   school={schoolType}
                   className="inline"
                 />{" "}
-                {index + 2}
+                {index + 1}
               </p>
               <div className="summary-container">
                 <div key={index}>
@@ -236,8 +125,6 @@ const Summary = ({ values }) => {
         }
       )}
 
-      <SummaryContainer values={bully1} heading="bully" showNumber={true} />
-
       {values.bullies.map(
         (
           {
@@ -257,7 +144,7 @@ const Summary = ({ values }) => {
                   school={schoolType}
                   className="inline"
                 />{" "}
-                {index + 2}
+                {index + 1}
               </p>
               <div className="summary-container">
                 <div key={index}>
