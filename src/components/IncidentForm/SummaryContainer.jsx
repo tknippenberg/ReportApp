@@ -6,22 +6,29 @@ const SummaryContainer = ({ values, heading, showNumber }) => {
 
   return (
     <div className="summary-wrapper">
-      <p className="font-bold mb-3">
-        {" "}
-        <TranslationComponent
-          keys={[heading]}
-          school={schoolType}
-          className="inline"
-        />{" "}
-        {showNumber ? 1 : ""}
-      </p>
+      {showNumber ? (
+        <p className="font-bold mb-3">
+          {" "}
+          <TranslationComponent
+            keys={[heading]}
+            school={schoolType}
+            className="inline"
+          />{" "}
+          1
+        </p>
+      ) : (
+        ""
+      )}
+
       <div className="summary-container">
-        {values.map((item, index) => (
-          <div key={index}>
-            <p className="property-label">{item.label}</p>
-            <p className="property-value">{item.value}</p>
-          </div>
-        ))}
+        {values.map((item, index) => {
+          return (
+            <div key={index}>
+              <p className="property-label">{item.label}</p>
+              <p className="property-value">{item.value}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

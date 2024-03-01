@@ -17,12 +17,14 @@ const initialValues = {
   firstname: "",
   lastname: "",
   gender: "",
+  myClass: "",
   email_address: "",
   role: "student",
   victimWho: "yes",
   victimFirstName: "",
   victimLastName: "",
   victimGender: "",
+  victimClass: "",
   bullyFirstName: "",
   bullyLastName: "",
   bullyGender: "",
@@ -36,8 +38,9 @@ const initialValues = {
 const IncidentForm = () => {
   const [step, setStep] = useState(0);
   const [submit, setSubmit] = useState(false);
-  const [schoolName, setSchoolName] = useState("");
   const Navigate = useNavigate();
+  const schoolType = localStorage.getItem("schoolType");
+  const schoolName = localStorage.getItem("schoolName");
 
   const handlePrev = () => {
     step >= 1 ? setStep(step - 1) : setStep(0);
@@ -135,29 +138,6 @@ const IncidentForm = () => {
     Navigate("/success");
   };
 
-  const getSchoolName = async (id) => {
-    try {
-      const response = await fetch(
-        `https://wjhulzebosch.nl/Avarix/MeldboxApi/School/${id}`
-      );
-      const data = await response.json();
-      console.log(data);
-      if (data.error) {
-        setSchoolName("false");
-      } else {
-        setSchoolName(data.schoolName);
-      }
-    } catch (error) {
-      console.error("Error checking school validity:", error);
-      setSchoolName(false);
-    }
-  };
-
-  useEffect(() => {
-    const id = localStorage.getItem("schoolId");
-    getSchoolName(id);
-  }, []);
-
   return (
     <div className="form-container">
       <Formik
@@ -170,7 +150,7 @@ const IncidentForm = () => {
             <div className="form-progress-container">
               <div className="flex justify-center gap-4">
                 <TranslationComponent
-                  school="basisschool"
+                  school={schoolType}
                   keys={["incident_report_form"]}
                   className="form-heading"
                 />
@@ -194,7 +174,7 @@ const IncidentForm = () => {
                 >
                   <TranslationComponent
                     keys={["previous"]}
-                    school="basisschool"
+                    school={schoolType}
                     className="inline"
                   />
                 </button>
@@ -206,7 +186,7 @@ const IncidentForm = () => {
                   >
                     <TranslationComponent
                       keys={["send_report"]}
-                      school="basisschool"
+                      school={schoolType}
                       className="inline"
                     />
                   </button>
@@ -223,7 +203,7 @@ const IncidentForm = () => {
                   >
                     <TranslationComponent
                       keys={["next"]}
-                      school="basisschool"
+                      school={schoolType}
                       className="inline"
                     />
                   </button>

@@ -44,15 +44,22 @@ const Step3 = () => {
                   if (
                     errors.someoneElseFields &&
                     errors.someoneElseFields[index] &&
-                    touched.someoneElseFields
+                    touched.someoneElseFields &&
+                    touched.someoneElseFields[index]
                   ) {
                     errorMsgs = {
-                      victimFirstName:
-                        errors.someoneElseFields[index].victimFirstName,
-                      victimLastName:
-                        errors.someoneElseFields[index].victimLastName,
-                      victimGender:
-                        errors.someoneElseFields[index].victimGender,
+                      victimFirstName: touched.someoneElseFields[index]
+                        ?.victimFirstName
+                        ? errors.someoneElseFields[index].victimFirstName
+                        : null,
+                      victimLastName: touched.someoneElseFields[index]
+                        ?.victimLastName
+                        ? errors.someoneElseFields[index].victimLastName
+                        : null,
+                      victimGender: touched.someoneElseFields[index]
+                        ?.victimGender
+                        ? errors.someoneElseFields[index].victimGender
+                        : null,
                     };
                   }
                   return (
@@ -213,14 +220,21 @@ const Step3 = () => {
                 if (
                   errors.victims &&
                   errors.victims[index] &&
-                  touched.victims
+                  touched.victims &&
+                  touched.victims[index]
                 ) {
                   errorMsgs = {
-                    morevictimFirstName:
-                      errors.victims[index].morevictimFirstName,
-                    morevictimLastName:
-                      errors.victims[index].morevictimLastName,
-                    morevictimGender: errors.victims[index].morevictimGender,
+                    morevictimFirstName: touched.victims[index]
+                      ?.morevictimFirstName
+                      ? errors.victims[index].morevictimFirstName
+                      : null,
+                    morevictimLastName: touched.victims[index]
+                      ?.morevictimLastName
+                      ? errors.victims[index].morevictimLastName
+                      : null,
+                    morevictimGender: touched.victims[index]?.morevictimGender
+                      ? errors.victims[index].morevictimGender
+                      : null,
                   };
                 }
                 return (
@@ -363,9 +377,6 @@ const Step3 = () => {
           )}
         </FieldArray>
       </div>
-      {/* <div className="step-container"> */}
-
-      {/* </div> */}
     </>
   );
 };

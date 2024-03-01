@@ -91,7 +91,7 @@ const Step5 = () => {
               className="error"
             />
           </div>
-          <div className="mt-3">
+          <div className="mt-3 mb-5">
             <label htmlFor="class">
               {" "}
               <TranslationComponent keys={["class"]} school={schoolType} />
@@ -108,14 +108,21 @@ const Step5 = () => {
                 if (
                   errors.bullies &&
                   errors.bullies[index] &&
-                  touched.bullies
+                  touched.bullies &&
+                  touched.bullies[index]
                 ) {
                   errorMsgs = {
-                    morebulliesFirstName:
-                      errors.bullies[index].morebulliesFirstName,
-                    morebulliesLastName:
-                      errors.bullies[index].morebulliesLastName,
-                    morebulliesGender: errors.bullies[index].morebulliesGender,
+                    morebulliesFirstName: touched.bullies[index]
+                      ?.morebulliesFirstName
+                      ? errors.bullies[index].morebulliesFirstName
+                      : null,
+                    morebulliesLastName: touched.bullies[index]
+                      ?.morebulliesLastName
+                      ? errors.bullies[index].morebulliesLastName
+                      : null,
+                    morebulliesGender: touched.bullies[index]?.morebulliesGender
+                      ? errors.bullies[index].morebulliesGender
+                      : null,
                   };
                 }
                 return (
@@ -182,21 +189,21 @@ const Step5 = () => {
                           name={`bullies.${index}.morebulliesGender`}
                           value="male"
                           onChange={(e) =>
-                            handleChange("morebulliesGender", index, e)
+                            handleChange3("morebulliesGender", index, e)
                           }
                         />
                         <RadioButton
                           name={`bullies.${index}.morebulliesGender`}
                           value="female"
                           onChange={(e) =>
-                            handleChange("morebulliesGender", index, e)
+                            handleChange3("morebulliesGender", index, e)
                           }
                         />
                         <RadioButton
                           name={`bullies.${index}.morebulliesGender`}
                           value="other"
                           onChange={(e) =>
-                            handleChange("morebulliesGender", index, e)
+                            handleChange3("morebulliesGender", index, e)
                           }
                         />
                       </div>

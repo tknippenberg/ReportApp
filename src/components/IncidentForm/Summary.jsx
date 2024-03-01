@@ -115,7 +115,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["class"]} school={schoolType} />
         </>
       ),
-      value: values.class,
+      value: values.myClass,
     },
   ];
 
@@ -132,7 +132,7 @@ const Summary = ({ values }) => {
         className="step-heading font-bold"
       />
       <SummaryContainer values={yourData} showNumber={false} />
-      {values.victimWho == "selft" ? (
+      {values.victimWho == "yes" ? (
         <>
           <p className="font-bold mb-3">
             {" "}
@@ -173,7 +173,13 @@ const Summary = ({ values }) => {
           </div>
         </>
       ) : (
-        <SummaryContainer values={victim1} heading="victim" showNumber={true} />
+        <>
+          <SummaryContainer
+            values={victim1}
+            heading="victim"
+            showNumber={true}
+          />
+        </>
       )}
 
       {values.victims.map(
