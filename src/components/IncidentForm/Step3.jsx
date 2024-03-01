@@ -12,7 +12,7 @@ const Step3 = () => {
   const handleChange = (valueName, event) => {
     setFieldValue(valueName, event.target.value);
     if (valueName === "victimWho") {
-      setIsVictimSelf(event.target.value === "selft");
+      setIsVictimSelf(event.target.value === "self");
     }
   };
 
@@ -27,6 +27,13 @@ const Step3 = () => {
 
   const addVictim = (index) => {
     setFieldValue("totalVictims", index);
+  };
+  
+  const handleRemoveVictim = (indexToRemove) => {
+    const updatedVictims = values.victims.filter(
+      (victim, index) => index !== indexToRemove
+    );
+    setFieldValue("victims", updatedVictims);
   };
 
   const schoolType = localStorage.getItem("schoolType");
@@ -343,20 +350,21 @@ const Step3 = () => {
                         className="error"
                       />
                     </div>
+                    <div className="mt-3">
+                      <button
+                        type="button"
+                        className="form-button secondary"
+                        onClick={() => handleRemoveVictim(index)}
+                      >
+                        <TranslationComponent keys={["remove_victim"]} school={schoolType} />
+                      </button>
+                    </div>
                   </div>
                 );
               })}
 
-              <TranslationComponent
-                keys={["more_victims"]}
-                school={schoolType}
-                className="step-heading"
-              />
               <div className="flex items-center gap-5 flex-wrap">
-                <RadioButton
-                  name="moreVictims"
-                  value="yes"
-                  onChange={(e) => {
+                <button type="button" class="form-button" onClick={(e) => {
                     push({
                       morevictimFirstName: "",
                       morevictimLastName: "",
@@ -364,14 +372,7 @@ const Step3 = () => {
                       victimClass: "",
                     });
                   }}
-                />
-                <RadioButton
-                  name="moreVictims"
-                  value="no"
-                  onChange={(e) => {
-                    handleChange2("moreVictims", e);
-                  }}
-                />
+                  ><TranslationComponent keys={["add_victim"]} school={schoolType} /></button>
               </div>
             </>
           )}
