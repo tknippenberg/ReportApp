@@ -3,9 +3,7 @@ import { Formik, Form } from "formik";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
-import Step4 from "./Step4";
 import Step5 from "./Step5";
-import Step6 from "./Step6";
 import { validationSchema } from "./ValidationSchema";
 import TranslationComponent from "../TranslationComponent";
 import Summary from "./Summary";
@@ -13,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   whatHappened: "",
-  date: "",
+  date: new Date().toISOString().split('T')[0], // Set to today's date
   firstname: "",
   lastname: "",
   gender: "",
@@ -21,18 +19,10 @@ const initialValues = {
   email_address: "",
   role: "student",
   victimWho: "yes",
-  victimFirstName: "",
-  victimLastName: "",
-  victimGender: "",
-  victimClass: "",
-  bullyFirstName: "",
-  bullyLastName: "",
-  bullyGender: "",
   totalVictims: 0,
-  totalBullies: 0,
+  totalBullies: 1,
   victims: [],
   bullies: [],
-  someoneElseFields: [],
 };
 
 const IncidentForm = () => {
@@ -63,22 +53,12 @@ const IncidentForm = () => {
               "role",
             ].includes(field);
           } else if (step === 2) {
-            return ["someoneElseFields", "victims"].includes(field);
+            return ["victims"].includes(field);
           }
-          // else if (step === 3) {
-          //   return ["victims"].includes(field);
-          // }
           else if (step === 3) {
-            return [
-              "bullyFirstName",
-              "bullyLastName",
-              "bullyGender",
-              "bullies",
-            ].includes(field);
+            // TODO: check for at least 1 bully
+            return ["bullies"].includes(field);
           }
-          // else if (step === 5) {
-          //   return ["bullies"].includes(field);
-          // }
           return true; // Include all fields if not in a specific step
         }
       );
@@ -127,9 +107,7 @@ const IncidentForm = () => {
     <Step1 />,
     <Step2 />,
     <Step3 />,
-    // <Step4 />,
     <Step5 />,
-    // <Step6 />,
   ];
 
   const handleSubmit = (values, { setSubmitting }) => {

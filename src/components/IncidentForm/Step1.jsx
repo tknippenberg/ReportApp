@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, useFormikContext } from "formik";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TranslationComponent from "../TranslationComponent";
 import { LocationDropdown } from "./FormDropdowns";
 
@@ -9,6 +9,12 @@ const Step1 = () => {
 
   const { values, setFieldValue } = useFormikContext();
 
+  useEffect(() => {
+    // Count words
+    const words = values.whatHappened.trim().split(/\s+/);
+    setWordCount(values.whatHappened.trim() === "" ? 0 : words.length);
+  }, [values.whatHappened]);
+  
   const handleChange = (event) => {
     const textarea = event.target;
     setTextareaHeight("");
@@ -55,7 +61,7 @@ const Step1 = () => {
         />
         <ErrorMessage name="whatHappened" component="div" className="error" />
       </div>
-      <div className="word-count">{wordCount} / 500 words</div>
+      <div className="word-count">{wordCount} / 500 woorden</div>
     </div>
   );
 };

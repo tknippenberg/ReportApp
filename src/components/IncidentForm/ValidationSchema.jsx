@@ -14,6 +14,15 @@ export const validationSchema = Yup.object().shape({
       />,
       (value) => value.trim().split(/\s+/).length >= 5
     )
+    .test(
+      "wordCount",
+      <TranslationComponent
+        keys={["validation_max_500_words"]}
+        school={schoolType}
+        className="inline"
+      />,
+      (value) => value.trim().split(/\s+/).length <= 500
+    )
     .required(
       <TranslationComponent
         keys={["validation_min_5_words"]}
@@ -65,27 +74,6 @@ export const validationSchema = Yup.object().shape({
         className="inline"
       />
     ),
-  bullyFirstName: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_first_name"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
-  bullyLastName: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_last_name"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
-  bullyGender: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_gender"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
 
   victims: Yup.array().of(
     Yup.object().shape({
@@ -137,31 +125,9 @@ export const validationSchema = Yup.object().shape({
         />
       ),
     })
-  ),
-
-  someoneElseFields: Yup.array().of(
-    Yup.object().shape({
-      victimFirstName: Yup.string().required(
-        <TranslationComponent
-          keys={["validation_first_name"]}
-          school={schoolType}
-          className="inline"
-        />
-      ),
-      victimLastName: Yup.string().required(
-        <TranslationComponent
-          keys={["validation_first_name"]}
-          school={schoolType}
-          className="inline"
-        />
-      ),
-      victimGender: Yup.string().required(
-        <TranslationComponent
-          keys={["validation_gender"]}
-          school={schoolType}
-          className="inline"
-        />
-      ),
-    })
-  ),
+  ).min(1, <TranslationComponent
+    keys={["validation_minimum_1_bully"]}
+    school={schoolType}
+    className="inline"
+  />)
 });
