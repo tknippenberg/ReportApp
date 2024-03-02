@@ -36,7 +36,7 @@ const Step3 = () => {
       },
     ]);
   };
-  
+
   const handleRemoveVictim = (indexToRemove) => {
     const updatedVictims = values.victims.filter(
       (victim, index) => index !== indexToRemove
@@ -219,17 +219,28 @@ const Step3 = () => {
                         className="form-button secondary"
                         onClick={() => handleRemoveVictim(index)}
                       >
-                        <TranslationComponent keys={["remove_victim"]} school={schoolType} />
+                        <TranslationComponent
+                          keys={["remove_victim"]}
+                          school={schoolType}
+                        />
                       </button>
                     </div>
                   </div>
                 );
               })}
               <div className="flex items-center gap-5 flex-wrap">
-                <button type="button" className="form-button" onClick={(e) => {
+                <button
+                  type="button"
+                  className="form-button"
+                  onClick={(e) => {
                     addVictim();
                   }}
-                  ><TranslationComponent keys={["add_victim"]} school={schoolType} /></button>
+                >
+                  <TranslationComponent
+                    keys={["add_victim"]}
+                    school={schoolType}
+                  />
+                </button>
               </div>
             </>
           )}

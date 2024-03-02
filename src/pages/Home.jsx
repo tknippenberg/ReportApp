@@ -8,6 +8,7 @@ import SchoolComponent from "../components/SchoolComponent";
 const Home = () => {
   const [isSchoolValid, setIsSchoolValid] = useState(false); // Initialize with false initially
   const [isLoading, setIsLoading] = useState(true);
+  const schoolType = localStorage.getItem("schoolType");
 
   useEffect(() => {
     // Simulating API call
@@ -40,7 +41,7 @@ const Home = () => {
                 className="report-incident-btn"
               >
                 <TranslationComponent
-                  school="basisschool"
+                  school={schoolType}
                   keys={["report_incident"]}
                 />
               </Link>
@@ -53,7 +54,7 @@ const Home = () => {
                 className="report-incident-btn"
               >
                 <TranslationComponent
-                  school="basisschool"
+                  school={schoolType}
                   keys={["report_incident"]}
                 />
               </Link>

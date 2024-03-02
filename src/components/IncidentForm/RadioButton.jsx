@@ -3,6 +3,8 @@ import React from "react";
 import TranslationComponent from "../TranslationComponent";
 
 const RadioButton = ({ name, value, onChange, checked }) => {
+  const schoolType = localStorage.getItem("schoolType");
+
   return (
     <div className="radio">
       <Field
@@ -13,7 +15,7 @@ const RadioButton = ({ name, value, onChange, checked }) => {
         // checked={checked}
       />
       <label className="radio-label flex items-end">
-        <TranslationComponent keys={[value]} school="basisschool" />
+        <TranslationComponent keys={[value]} school={schoolType} />
       </label>
     </div>
   );

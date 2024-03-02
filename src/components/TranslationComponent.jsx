@@ -35,9 +35,9 @@ const TranslationComponent = ({ school, keys, className }) => {
   return (
     <>
       {keys.map((key) => (
-        <p className={className} key={key}>
+        <span className={className} key={key}>
           {translate(key)}
-        </p>
+        </span>
       ))}
     </>
   );

@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   whatHappened: "",
-  date: new Date().toISOString().split('T')[0], // Set to today's date
+  date: new Date().toISOString().split("T")[0], // Set to today's date
   firstname: "",
   lastname: "",
   gender: "",
@@ -26,7 +26,7 @@ const initialValues = {
 };
 
 const IncidentForm = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
   const [submit, setSubmit] = useState(false);
   const Navigate = useNavigate();
   const schoolType = localStorage.getItem("schoolType");
@@ -54,8 +54,7 @@ const IncidentForm = () => {
             ].includes(field);
           } else if (step === 2) {
             return ["victims"].includes(field);
-          }
-          else if (step === 3) {
+          } else if (step === 3) {
             // TODO: check for at least 1 bully
             return ["bullies"].includes(field);
           }
@@ -103,12 +102,7 @@ const IncidentForm = () => {
     }
   };
 
-  const steps = [
-    <Step1 />,
-    <Step2 />,
-    <Step3 />,
-    <Step5 />,
-  ];
+  const steps = [<Step1 />, <Step2 />, <Step3 />, <Step5 />];
 
   const handleSubmit = (values, { setSubmitting }) => {
     // Handle form submission
