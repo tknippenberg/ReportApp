@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const TranslationComponent = ({ school, keys, className }) => {
   const [translations, setTranslations] = useState({});
@@ -27,7 +29,7 @@ const TranslationComponent = ({ school, keys, className }) => {
   }, [school]);
 
   const translate = (key) => {
-    return translations[key] || key;
+    return translations[key] || <Skeleton />;
   };
 
   return (

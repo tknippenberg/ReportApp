@@ -19,6 +19,10 @@ body {
 .justify-between {
   justify-content: space-between;
 }
+.justify-center {
+  justify-content: center;
+}
+
 .items-center {
   align-items: center;
 }
@@ -68,6 +72,7 @@ body {
   right: 0;
   padding: 1em 2em;
   display: none;
+  z-index: 99;
 }
 
 .navbar-options-div a {
@@ -151,6 +156,7 @@ body {
   font-size: 1rem;
   display: inline-block;
   text-decoration: none;
+  min-width: 157px;
 }
 
 .form-container {
@@ -230,6 +236,13 @@ body {
   font-size: 1rem;
   display: inline-block;
   text-decoration: none;
+}
+
+.form-button.secondary {
+  background-color: #fff;
+  color: DarkRed;
+  border: 2px solid DarkRed;
+  font-size:0.8em;
 }
 
 .previous-btn {
@@ -403,6 +416,7 @@ label {
 }
 
 .home-btn {
+  min-width: 98px;
   padding: 0.5em 1.5em;
 }
 
@@ -481,6 +495,10 @@ label {
   margin-bottom: 1em;
 }
 
+.mb-5 {
+  margin-bottom: 1em;
+}
+
 .py-3 {
   padding-top: 1em;
   padding-bottom: 1em;
@@ -519,4 +537,8 @@ label {
 .px-9 {
   padding-left: 5em;
   padding-right: 5em;
+}
+
+.gap-4 {
+  gap: 1em;
 }

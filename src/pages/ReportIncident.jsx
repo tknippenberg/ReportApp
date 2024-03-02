@@ -4,8 +4,6 @@ import SchoolComponent from "../components/SchoolComponent";
 import { Navigate } from "react-router-dom";
 
 const ReportIncident = () => {
-  // const [isSchoolValid, setIsSchoolValid] = useState(false);
-
   const [isSchooldValid, setIsSchoolValid] = useState(
     localStorage.getItem("schoolId")
   );

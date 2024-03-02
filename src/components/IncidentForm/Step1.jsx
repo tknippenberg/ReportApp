@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, useFormikContext } from "formik";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TranslationComponent from "../TranslationComponent";
 import { LocationDropdown } from "./FormDropdowns";
 
@@ -9,6 +9,12 @@ const Step1 = () => {
 
   const { values, setFieldValue } = useFormikContext();
 
+  useEffect(() => {
+    // Count words
+    const words = values.whatHappened.trim().split(/\s+/);
+    setWordCount(values.whatHappened.trim() === "" ? 0 : words.length);
+  }, [values.whatHappened]);
+  
   const handleChange = (event) => {
     const textarea = event.target;
     setTextareaHeight("");
@@ -21,11 +27,13 @@ const Step1 = () => {
     setFieldValue("whatHappened", event.target.value);
   };
 
+  const schoolType = localStorage.getItem("schoolType");
+
   return (
     <div className="step-container">
       <TranslationComponent
         keys={["incident_report_form_intro"]}
-        school="basisschool"
+        school={schoolType}
         className="step-heading"
       />
       <div>
@@ -35,14 +43,14 @@ const Step1 = () => {
       </div>
       <div className="mt-3">
         <label htmlFor="datetime">
-          <TranslationComponent keys={["when"]} school="basisschool" />
+          <TranslationComponent keys={["when"]} school={schoolType} />
         </label>
         <Field type="date" name="date" className="input-field dateField" />
         <ErrorMessage name="date" component="div" className="error" />
       </div>
       <div className="mt-3">
         <label htmlFor="whatHappened">
-          <TranslationComponent keys={["what_happened"]} school="basisschool" />
+          <TranslationComponent keys={["what_happened"]} school={schoolType} />
         </label>
         <Field
           as="textarea"
@@ -53,7 +61,7 @@ const Step1 = () => {
         />
         <ErrorMessage name="whatHappened" component="div" className="error" />
       </div>
-      <div className="word-count">{wordCount} / 500 words</div>
+      <div className="word-count">{wordCount} / 500 woorden</div>
     </div>
   );
 };

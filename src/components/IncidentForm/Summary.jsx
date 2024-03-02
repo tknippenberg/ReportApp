@@ -4,81 +4,13 @@ import SummaryContainer from "./SummaryContainer";
 import { generateBullies, generateVictims } from "../../utils/FormData";
 
 const Summary = ({ values }) => {
-  const victim1 = [
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["firstname"]} school="basisschool" />
-        </>
-      ),
-      value: values.victimFirstName,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["lastname"]} school="basisschool" />
-        </>
-      ),
-      value: values.victimLastName,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["gender"]} school="basisschool" />
-        </>
-      ),
-      value: values.victimGender,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["class"]} school="basisschool" />
-        </>
-      ),
-      value: values.victimClass,
-    },
-  ];
-
-  const bully1 = [
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["firstname"]} school="basisschool" />
-        </>
-      ),
-      value: values.bullyFirstName,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["lastname"]} school="basisschool" />
-        </>
-      ),
-      value: values.bullyLastName,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["gender"]} school="basisschool" />
-        </>
-      ),
-      value: values.bullyGender,
-    },
-    {
-      label: (
-        <>
-          <TranslationComponent keys={["class"]} school="basisschool" />
-        </>
-      ),
-      value: values.bullyClass,
-    },
-  ];
+  const schoolType = localStorage.getItem("schoolType");
 
   const yourData = [
     {
       label: (
         <>
-          <TranslationComponent keys={["firstname"]} school="basisschool" />
+          <TranslationComponent keys={["firstname"]} school={schoolType} />
         </>
       ),
       value: values.firstname,
@@ -86,7 +18,7 @@ const Summary = ({ values }) => {
     {
       label: (
         <>
-          <TranslationComponent keys={["lastname"]} school="basisschool" />
+          <TranslationComponent keys={["lastname"]} school={schoolType} />
         </>
       ),
       value: values.lastname,
@@ -94,7 +26,15 @@ const Summary = ({ values }) => {
     {
       label: (
         <>
-          <TranslationComponent keys={["email_address"]} school="basisschool" />
+          <TranslationComponent keys={["gender"]} school={schoolType} />
+        </>
+      ),
+      value: <TranslationComponent keys={[values.gender]} school={schoolType} /> ,
+    },
+    {
+      label: (
+        <>
+          <TranslationComponent keys={["email_address"]} school={schoolType} />
         </>
       ),
       value: values.email_address,
@@ -102,7 +42,7 @@ const Summary = ({ values }) => {
     {
       label: (
         <>
-          <TranslationComponent keys={["role"]} school="basisschool" />
+          <TranslationComponent keys={["role"]} school={schoolType} />
         </>
       ),
       value: values.role,
@@ -110,10 +50,10 @@ const Summary = ({ values }) => {
     {
       label: (
         <>
-          <TranslationComponent keys={["class"]} school="basisschool" />
+          <TranslationComponent keys={["class"]} school={schoolType} />
         </>
       ),
-      value: values.class,
+      value: values.myClass,
     },
   ];
 
@@ -121,51 +61,16 @@ const Summary = ({ values }) => {
     <div className="step-container">
       <TranslationComponent
         keys={["check_summary_report"]}
-        school="basisschool"
+        school={schoolType}
         className="step-heading"
       />
       <TranslationComponent
         keys={["your_data"]}
-        school="basisschool"
+        school={schoolType}
         className="step-heading font-bold"
       />
-      <SummaryContainer values={yourData} />
-      {values.victimWho == "selft" ? (
-        <>
-          <p className="font-bold mb-3">Victim 1</p>
-          <div className="summary-container">
-            <div>
-              <TranslationComponent
-                keys={["firstname"]}
-                school="basisschool"
-                className="property-label"
-              />
-              <p className="property-value">{values?.firstname}</p>
-              <TranslationComponent
-                keys={["lastname"]}
-                school="basisschool"
-                className="property-label"
-              />
-              <p className="property-value">{values?.lastname}</p>
-              <TranslationComponent
-                keys={["gender"]}
-                school="basisschool"
-                className="property-label"
-              />
-              <p className="property-value">{values?.gender}</p>
-              <TranslationComponent
-                keys={["class"]}
-                school="basisschool"
-                className="property-label"
-              />
-              <p className="property-value">{values?.myClass}</p>
-            </div>
-          </div>
-        </>
-      ) : (
-        <SummaryContainer values={victim1} heading="Victim 1" />
-      )}
-
+      <SummaryContainer values={yourData} showNumber={false} />
+      
       {values.victims.map(
         (
           {
@@ -178,41 +83,54 @@ const Summary = ({ values }) => {
         ) => {
           return (
             <>
-              <p className="font-bold mb-3">Victim {index + 2}</p>
+              <p className="font-bold mb-3">
+                {" "}
+                <TranslationComponent
+                  keys={["victim"]}
+                  school={schoolType}
+                  className="inline"
+                />{" "}
+                {index + 1}
+              </p>
               <div className="summary-container">
                 <div key={index}>
                   <TranslationComponent
                     keys={["firstname"]}
-                    school="basisschool"
+                    school={schoolType}
                     className="property-label"
                   />
                   <p className="property-value">{morevictimFirstName}</p>
                   <TranslationComponent
                     keys={["lastname"]}
-                    school="basisschool"
+                    school={schoolType}
                     className="property-label"
                   />
                   <p className="property-value">{morevictimLastName}</p>
+                  
                   <TranslationComponent
                     keys={["gender"]}
-                    school="basisschool"
+                    school={schoolType}
                     className="property-label"
                   />
-                  <p className="property-value">{morevictimGender}</p>
+                  <TranslationComponent
+                    keys={[morevictimGender]}
+                    school={schoolType}
+                    className="property-value"
+                  />
+
                   <TranslationComponent
                     keys={["class"]}
-                    school="basisschool"
+                    school={schoolType}
                     className="property-label"
                   />
                   <p className="property-value">{victimClass}</p>
+
                 </div>
               </div>
             </>
           );
         }
       )}
-
-      <SummaryContainer values={bully1} heading="Bully 1" />
 
       {values.bullies.map(
         (
@@ -226,33 +144,50 @@ const Summary = ({ values }) => {
         ) => {
           return (
             <>
-              <p className="font-bold mb-3">Bully {index + 2}</p>
+              <p className="font-bold mb-3">
+                {" "}
+                <TranslationComponent
+                  keys={["bully"]}
+                  school={schoolType}
+                  className="inline"
+                />{" "}
+                {index + 1}
+              </p>
               <div className="summary-container">
+
                 <div key={index}>
                   <TranslationComponent
                     keys={["firstname"]}
-                    school="basisschool"
+                    school={schoolType}
                     className="property-label"
                   />
                   <p className="property-value">{morebulliesFirstName}</p>
+
                   <TranslationComponent
                     keys={["lastname"]}
-                    school="basisschool"
+                    school={schoolType}
                     className="property-label"
                   />
                   <p className="property-value">{morebulliesLastName}</p>
+
                   <TranslationComponent
                     keys={["gender"]}
-                    school="basisschool"
+                    school={schoolType}
                     className="property-label"
-                  />
-                  <p className="property-value">{morebulliesGender}</p>
+                  />  
+                  <TranslationComponent
+                    keys={[morebulliesGender]}
+                    school={schoolType}
+                    className="property-value"
+                  />     
+
                   <TranslationComponent
                     keys={["class"]}
-                    school="basisschool"
+                    school={schoolType}
                     className="property-label"
                   />
                   <p className="property-value">{morebulliesClass}</p>
+
                 </div>
               </div>
             </>
