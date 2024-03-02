@@ -8,6 +8,7 @@ import { validationSchema } from "./ValidationSchema";
 import TranslationComponent from "../TranslationComponent";
 import Summary from "./Summary";
 import { useNavigate } from "react-router-dom";
+import { deepCopyWithTrue } from "../../utils/utils";
 
 const initialValues = {
   whatHappened: "",
@@ -26,7 +27,7 @@ const initialValues = {
 };
 
 const IncidentForm = () => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const [submit, setSubmit] = useState(false);
   const Navigate = useNavigate();
   const schoolType = localStorage.getItem("schoolType");
@@ -74,14 +75,8 @@ const IncidentForm = () => {
         console.error("Validation errors:", error.errors);
 
         // Set touched for all fields to trigger error messages
-        const allFields = Object.keys(values);
-        const touchedState = allFields.reduce((acc, field) => {
-          acc[field] = true;
-          return acc;
-        }, {});
+        const touchedState = deepCopyWithTrue(values);
         setTouched(touchedState);
-
-        console.log(error.errors);
 
         let errorsArr = [];
         if ("inner" in error && Array.isArray(error.inner)) {
@@ -104,10 +99,37 @@ const IncidentForm = () => {
 
   const steps = [<Step1 />, <Step2 />, <Step3 />, <Step5 />];
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     // Handle form submission
     console.log(values);
-    Navigate("/success");
+
+    try {
+      const response = await fetch(
+        "https://wjhulzebosch.nl/Avarix/MeldboxApi/Incident/New",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+
+      if (response.ok) {
+        console.log("Form data sent successfully!");
+        // Navigate to success page
+        Navigate("/success");
+      } else {
+        console.error("Error sending form data:", response.status);
+        // Handle error accordingly
+      }
+    } catch (error) {
+      console.error("Error sending form data:", error);
+      // Handle error accordingly
+    }
+
+    // Make sure to call setSubmitting(false) to inform Formik that submission is complete
+    setSubmitting(false);
   };
 
   return (
