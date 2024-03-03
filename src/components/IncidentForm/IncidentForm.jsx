@@ -25,7 +25,7 @@ const initialValues = {
   },
   victimWho: "yes",
   totalVictims: 0,
-  totalBullies: 0,
+  totalBullies: 1,
   Victims: [],
   Bullies: [],
 };

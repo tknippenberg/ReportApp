@@ -99,7 +99,7 @@ const Summary = ({ values }) => {
       />
       <SummaryContainer values={yourData} showNumber={false} />
 
-      {values.Victims.map(({ FirstName, LastName, Gender, Group }, index) => {
+      {values.Victims.map(({ Firstname, Lastname, Gender, Group }, index) => {
         return (
           <>
             <p className="font-bold mb-3">
@@ -118,13 +118,13 @@ const Summary = ({ values }) => {
                   school={schoolType}
                   className="property-label"
                 />
-                <p className="property-value">{FirstName}</p>
+                <p className="property-value">{Firstname}</p>
                 <TranslationComponent
                   keys={["lastname"]}
                   school={schoolType}
                   className="property-label"
                 />
-                <p className="property-value">{LastName}</p>
+                <p className="property-value">{Lastname}</p>
 
                 <TranslationComponent
                   keys={["gender"]}
@@ -149,7 +149,7 @@ const Summary = ({ values }) => {
         );
       })}
 
-      {values.Bullies.map(({ FirstName, LastName, Gender, Group }, index) => {
+      {values.Bullies.map(({ Firstname, Lastname, Gender, Group }, index) => {
         return (
           <>
             <p className="font-bold mb-3">
@@ -168,14 +168,14 @@ const Summary = ({ values }) => {
                   school={schoolType}
                   className="property-label"
                 />
-                <p className="property-value">{FirstName}</p>
+                <p className="property-value">{Firstname}</p>
 
                 <TranslationComponent
                   keys={["lastname"]}
                   school={schoolType}
                   className="property-label"
                 />
-                <p className="property-value">{LastName}</p>
+                <p className="property-value">{Lastname}</p>
 
                 <TranslationComponent
                   keys={["gender"]}
