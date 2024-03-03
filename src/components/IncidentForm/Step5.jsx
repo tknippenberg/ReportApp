@@ -13,32 +13,31 @@ const Step5 = () => {
   };
 
   const handleChange3 = (field, index, e) => {
-    setFieldValue(`bullies.${index}.${field}`, e.target.value);
+    setFieldValue(`Bullies.${index}.${field}`, e.target.value);
     setFieldValue("totalBullies", index);
   };
 
   const handleChange2 = (valueName, event) => {
     setFieldValue(valueName, event.target.value);
   };
-  
+
   const addBully = () => {
-    setFieldValue("bullies", [
-      ...values.bullies,
+    setFieldValue("Bullies", [
+      ...values.Bullies,
       {
-        morebulliesFirstName: "",
-        morebulliesLastName: "",
-        morebulliesGender: "",
-        bulliesClass: "",
+        Firstname: "",
+        Lastname: "",
+        Gender: "",
+        Group: "",
       },
     ]);
   };
-  
 
   const handleRemoveBully = (indexToRemove) => {
-    const updatedBullies = values.bullies.filter(
-      (victim, index) => index !== indexToRemove
+    const updatedBullies = values.Bullies.filter(
+      (bully, index) => index !== indexToRemove
     );
-    setFieldValue("bullies", updatedBullies);
+    setFieldValue("Bullies", updatedBullies);
   };
 
   const schoolType = localStorage.getItem("schoolType");
@@ -53,28 +52,29 @@ const Step5 = () => {
         />
 
         {/* TODO: directly show one entry */}
-        <FieldArray name="bullies">
+        <FieldArray name="Bullies">
           {({ push, remove, form: { errors, touched } }) => (
             <>
-              {values.bullies.map((bully, index) => {
+              {values.Bullies.map((bully, index) => {
                 let errorMsgs = null;
                 if (
-                  errors.bullies &&
-                  errors.bullies[index] &&
-                  touched.bullies &&
-                  touched.bullies[index]
+                  errors.Bullies &&
+                  errors.Bullies[index] &&
+                  touched.Bullies &&
+                  touched.Bullies[index]
                 ) {
                   errorMsgs = {
-                    morebulliesFirstName: touched.bullies[index]
-                      ?.morebulliesFirstName
-                      ? errors.bullies[index].morebulliesFirstName
+                    Firstname: touched.Bullies[index]?.Firstname
+                      ? errors.Bullies[index].Firstname
                       : null,
-                    morebulliesLastName: touched.bullies[index]
-                      ?.morebulliesLastName
-                      ? errors.bullies[index].morebulliesLastName
+                    Lastname: touched.Bullies[index]?.Lastname
+                      ? errors.Bullies[index].Lastname
                       : null,
-                    morebulliesGender: touched.bullies[index]?.morebulliesGender
-                      ? errors.bullies[index].morebulliesGender
+                    Gender: touched.Bullies[index]?.Gender
+                      ? errors.Bullies[index].Gender
+                      : null,
+                    Group: touched.Bullies[index]?.Group
+                      ? errors.Bullies[index].Group
                       : null,
                   };
                 }
@@ -89,43 +89,39 @@ const Step5 = () => {
                       {index + 1}
                     </p>
                     <div>
-                      <label htmlFor={`morebulliesFirstName${index}`}>
+                      <label htmlFor={`Firstname${index}`}>
                         <TranslationComponent
-                          keys={["firstname"]}
+                          keys={["Firstname"]}
                           school={schoolType}
                         />
                       </label>
                       <Field
                         type="text"
-                        name={`bullies.${index}.morebulliesFirstName`}
+                        name={`Bullies.${index}.Firstname`}
                         className="input-field"
                         placeholder="Voer uw voornaam in"
                       />
-                      {errorMsgs?.morebulliesFirstName ? (
-                        <div className="error">
-                          {errorMsgs.morebulliesFirstName}
-                        </div>
+                      {errorMsgs?.Firstname ? (
+                        <div className="error">{errorMsgs.Firstname}</div>
                       ) : (
                         <></>
                       )}
                     </div>
                     <div className="mt-3">
-                      <label htmlFor={`morebulliesLastName${index}`}>
+                      <label htmlFor={`Lastname${index}`}>
                         <TranslationComponent
-                          keys={["lastname"]}
+                          keys={["Lastname"]}
                           school={schoolType}
                         />
                       </label>
                       <Field
                         type="text"
-                        name={`bullies.${index}.morebulliesLastName`}
+                        name={`Bullies.${index}.Lastname`}
                         className="input-field"
                         placeholder="Voer uw achternaam in"
                       />
-                      {errorMsgs?.morebulliesLastName ? (
-                        <div className="error">
-                          {errorMsgs.morebulliesLastName}
-                        </div>
+                      {errorMsgs?.Lastname ? (
+                        <div className="error">{errorMsgs.Lastname}</div>
                       ) : (
                         <></>
                       )}
@@ -139,31 +135,23 @@ const Step5 = () => {
                       </label>
                       <div className="flex items-center gap-5 flex-wrap">
                         <RadioButton
-                          name={`bullies.${index}.morebulliesGender`}
+                          name={`Bullies.${index}.Gender`}
                           value="male"
-                          onChange={(e) =>
-                            handleChange3("morebulliesGender", index, e)
-                          }
+                          onChange={(e) => handleChange3("Gender", index, e)}
                         />
                         <RadioButton
-                          name={`bullies.${index}.morebulliesGender`}
+                          name={`Bullies.${index}.Gender`}
                           value="female"
-                          onChange={(e) =>
-                            handleChange3("morebulliesGender", index, e)
-                          }
+                          onChange={(e) => handleChange3("Gender", index, e)}
                         />
                         <RadioButton
-                          name={`bullies.${index}.morebulliesGender`}
+                          name={`Bullies.${index}.Gender`}
                           value="other"
-                          onChange={(e) =>
-                            handleChange3("morebulliesGender", index, e)
-                          }
+                          onChange={(e) => handleChange3("Gender", index, e)}
                         />
                       </div>
-                      {errorMsgs?.morebulliesGender ? (
-                        <div className="error">
-                          {errorMsgs.morebulliesGender}
-                        </div>
+                      {errorMsgs?.Gender ? (
+                        <div className="error">{errorMsgs.Gender}</div>
                       ) : (
                         <></>
                       )}
@@ -175,14 +163,12 @@ const Step5 = () => {
                           school={schoolType}
                         />
                       </label>
-                      <ClassesDropdown
-                        name={`bullies.${index}.morebulliesClass`}
-                      />
-                      <ErrorMessage
-                        name={`bullies.${index}.morebulliesClass`}
-                        component="div"
-                        className="error"
-                      />
+                      <ClassesDropdown name={`Bullies.${index}.Group`} />
+                      {errorMsgs?.Group ? (
+                        <div className="error">{errorMsgs.Group}</div>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                     <div className="mt-3">
                       <button
@@ -190,7 +176,10 @@ const Step5 = () => {
                         className="form-button secondary"
                         onClick={() => handleRemoveBully(index)}
                       >
-                        <TranslationComponent keys={["remove_bully"]} school={schoolType} />
+                        <TranslationComponent
+                          keys={["remove_bully"]}
+                          school={schoolType}
+                        />
                       </button>
                     </div>
                   </div>
@@ -205,12 +194,16 @@ const Step5 = () => {
                     addBully();
                   }}
                 >
-                  <TranslationComponent keys={["add_bully"]} school={schoolType} />
+                  <TranslationComponent
+                    keys={["add_bully"]}
+                    school={schoolType}
+                  />
                 </button>
               </div>
             </>
           )}
         </FieldArray>
+        <ErrorMessage className="error" component="div" name="Bullies" />
       </div>
     </>
   );

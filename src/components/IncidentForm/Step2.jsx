@@ -9,8 +9,24 @@ const Step2 = () => {
   const { values, setFieldValue } = useFormikContext();
   const [isStudent, setIsStudent] = useState(true);
 
-  const handleChange = (valueName, event) => {
-    setFieldValue(valueName, event.target.value);
+  const handleChange = (fieldName, event) => {
+    const { value } = event.target;
+
+    // Check if the field belongs to the notifier object
+    if (
+      [
+        "Firstname",
+        "Lastname",
+        "Gender",
+        "Emailaddress",
+        "Role",
+        "Group",
+      ].includes(fieldName)
+    ) {
+      setFieldValue(`Notifier.${fieldName}`, value); // Set value in the notifier object
+    } else {
+      setFieldValue(fieldName, value); // Set value normally for other fields
+    }
   };
 
   const schoolType = localStorage.getItem("schoolType");
@@ -24,28 +40,38 @@ const Step2 = () => {
           className="step-heading"
         />
         <div>
-          <label htmlFor="firstname">
+          <label htmlFor="Firstname">
             <TranslationComponent keys={["firstname"]} school={schoolType} />
           </label>
           <Field
             type="text"
-            name="firstname"
+            name="Notifier.Firstname"
             className="input-field"
             placeholder="Voer uw voornaam in"
+            onChange={(e) => handleChange("Notifier.Firstname", e)}
           />
-          <ErrorMessage name="firstname" component="div" className="error" />
+          <ErrorMessage
+            name="Notifier.Firstname"
+            component="div"
+            className="error"
+          />
         </div>
         <div className="mt-3">
-          <label htmlFor="lastname">
+          <label htmlFor="Lastname">
             <TranslationComponent keys={["lastname"]} school={schoolType} />
           </label>
           <Field
             type="text"
-            name="lastname"
+            name="Notifier.Lastname"
             className="input-field"
             placeholder="Voer uw achternaam in"
+            onChange={(e) => handleChange("Notifier.Lastname", e)}
           />
-          <ErrorMessage name="lastname" component="div" className="error" />
+          <ErrorMessage
+            name="Notifier.Lastname"
+            component="div"
+            className="error"
+          />
         </div>
         <div className="mt-3">
           <label>
@@ -53,25 +79,29 @@ const Step2 = () => {
           </label>
           <div className="flex items-center gap-5 flex-wrap">
             <RadioButton
-              name="gender"
+              name="Notifier.Gender"
               value="male"
-              onChange={(e) => handleChange("gender", e)}
+              onChange={(e) => handleChange("Notifier.Gender", e)}
             />
             <RadioButton
-              name="gender"
+              name="Notifier.Gender"
               value="female"
-              onChange={(e) => handleChange("gender", e)}
+              onChange={(e) => handleChange("Notifier.Gender", e)}
             />
             <RadioButton
-              name="gender"
+              name="Notifier.Gender"
               value="other"
-              onChange={(e) => handleChange("gender", e)}
+              onChange={(e) => handleChange("Notifier.Gender", e)}
             />
           </div>
-          <ErrorMessage name="gender" component="div" className="error" />
+          <ErrorMessage
+            name="Notifier.Gender"
+            component="div"
+            className="error"
+          />
         </div>
         <div className="mt-3">
-          <label htmlFor="email_address">
+          <label htmlFor="Emailaddress">
             <TranslationComponent
               keys={["email_address"]}
               school={schoolType}
@@ -79,12 +109,13 @@ const Step2 = () => {
           </label>
           <Field
             type="email"
-            name="email_address"
+            name="Notifier.Emailaddress"
             className="input-field"
             placeholder="Voer uw e-mailadres in"
+            onChange={(e) => handleChange("Notifier.Emailaddress", e)}
           />
           <ErrorMessage
-            name="email_address"
+            name="Notifier.Emailaddress"
             component="div"
             className="error"
           />
@@ -95,39 +126,47 @@ const Step2 = () => {
           </label>
           <div className="flex items-center gap-5 flex-wrap">
             <RadioButton
-              name="role"
-              value="student"
+              name="Notifier.Role"
+              value="0"
+              labelName="student"
               onChange={(e) => {
-                handleChange("role", e);
+                handleChange("Notifier.Role", e);
                 setIsStudent(true);
               }}
             />
             <RadioButton
-              name="role"
-              value="parent"
+              name="Notifier.Role"
+              value="1"
+              labelName="parent"
               onChange={(e) => {
-                handleChange("role", e);
+                handleChange("Notifier.Role", e);
                 setIsStudent(false);
               }}
             />
             <RadioButton
-              name="role"
-              value="teacher"
+              name="Notifier.Role"
+              value="2"
+              labelName="teacher"
               onChange={(e) => {
-                handleChange("role", e);
+                handleChange("Notifier.Role", e);
                 setIsStudent(false);
               }}
             />
             <RadioButton
-              name="role"
-              value="other"
+              name="Notifier.Role"
+              value="3"
+              labelName={"other"}
               onChange={(e) => {
-                handleChange("role", e);
+                handleChange("Notifier.Role", e);
                 setIsStudent(false);
               }}
             />
           </div>
-          <ErrorMessage name="role" component="div" className="error" />
+          <ErrorMessage
+            name="Notifier.Role"
+            component="div"
+            className="error"
+          />
         </div>
         {isStudent ? (
           <div className="mt-3">
@@ -135,8 +174,15 @@ const Step2 = () => {
               {" "}
               <TranslationComponent keys={["class"]} school={schoolType} />
             </label>
-            <ClassesDropdown name="myClass" />
-            <ErrorMessage name="myClass" component="div" className="error" />
+            <ClassesDropdown
+              name="Notifier.Group"
+              onChange={(e) => handleChange("Notifier.Group", e)}
+            />
+            <ErrorMessage
+              name="Notifier.Group"
+              component="div"
+              className="error"
+            />
           </div>
         ) : (
           ""

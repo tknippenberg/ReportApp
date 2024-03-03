@@ -4,7 +4,8 @@ import TranslationComponent from "../TranslationComponent";
 const schoolType = localStorage.getItem("schoolType");
 
 export const validationSchema = Yup.object().shape({
-  whatHappened: Yup.string()
+  LocationId: Yup.string().required("Locatie is vereist"),
+  IncidentDescription: Yup.string()
     .test(
       "wordCount",
       <TranslationComponent
@@ -30,104 +31,125 @@ export const validationSchema = Yup.object().shape({
         className="inline"
       />
     ),
-  date: Yup.string().required(
+  IncidentDate: Yup.string().required(
     <TranslationComponent
       keys={["validation_date"]}
       school={schoolType}
       className="inline"
     />
   ),
-  firstname: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_first_name"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
-  lastname: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_last_name"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
-  role: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_role"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
-  gender: Yup.string().required(
-    <TranslationComponent
-      keys={["validation_gender"]}
-      school={schoolType}
-      className="inline"
-    />
-  ),
-  email_address: Yup.string()
-    .email("Gelieve een geldig e-mailadres in te vullen")
-    .required(
+  Notifier: Yup.object().shape({
+    Firstname: Yup.string().required(
       <TranslationComponent
-        keys={["validation_email_address"]}
+        keys={["validation_first_name"]}
         school={schoolType}
         className="inline"
       />
     ),
+    Lastname: Yup.string().required(
+      <TranslationComponent
+        keys={["validation_last_name"]}
+        school={schoolType}
+        className="inline"
+      />
+    ),
+    Role: Yup.string().required(
+      <TranslationComponent
+        keys={["validation_role"]}
+        school={schoolType}
+        className="inline"
+      />
+    ),
+    Gender: Yup.string().required(
+      <TranslationComponent
+        keys={["validation_gender"]}
+        school={schoolType}
+        className="inline"
+      />
+    ),
+    Emailaddress: Yup.string()
+      .email("Gelieve een geldig e-mailadres in te vullen")
+      .required(
+        <TranslationComponent
+          keys={["validation_email_address"]}
+          school={schoolType}
+          className="inline"
+        />
+      ),
 
-  victims: Yup.array().of(
+    // Group: Yup.string().required("Klasse is vereist"),
+  }),
+
+  Victims: Yup.array().of(
     Yup.object().shape({
-      morevictimFirstName: Yup.string().required(
+      Firstname: Yup.string().required(
         <TranslationComponent
           keys={["validation_first_name"]}
           school={schoolType}
           className="inline"
         />
       ),
-      morevictimLastName: Yup.string().required(
+      Lastname: Yup.string().required(
         <TranslationComponent
           keys={["validation_last_name"]}
           school={schoolType}
           className="inline"
         />
       ),
-      morevictimGender: Yup.string().required(
+      Gender: Yup.string().required(
         <TranslationComponent
           keys={["validation_gender"]}
           school={schoolType}
           className="inline"
         />
       ),
+      // Group: Yup.string().required("Klasse is vereist"),
     })
   ),
+  // .min(
+  //   1,
+  //   // <TranslationComponent
+  //   //   keys={["validation_minimum_1_bully"]}
+  //   //   school={schoolType}
+  //   //   className="inline"
+  //   // />
+  //   "Please Selec"
+  // ),
 
-  bullies: Yup.array().of(
-    Yup.object().shape({
-      morebulliesFirstName: Yup.string().required(
-        <TranslationComponent
-          keys={["validation_first_name"]}
-          school={schoolType}
-          className="inline"
-        />
-      ),
-      morebulliesLastName: Yup.string().required(
-        <TranslationComponent
-          keys={["validation_last_name"]}
-          school={schoolType}
-          className="inline"
-        />
-      ),
-      morebulliesGender: Yup.string().required(
-        <TranslationComponent
-          keys={["validation_gender"]}
-          school={schoolType}
-          className="inline"
-        />
-      ),
-    })
-  ).min(1, <TranslationComponent
-    keys={["validation_minimum_1_bully"]}
-    school={schoolType}
-    className="inline"
-  />)
+  Bullies: Yup.array()
+    .of(
+      Yup.object().shape({
+        Firstname: Yup.string().required(
+          <TranslationComponent
+            keys={["validation_first_name"]}
+            school={schoolType}
+            className="inline"
+          />
+        ),
+        Lastname: Yup.string().required(
+          <TranslationComponent
+            keys={["validation_last_name"]}
+            school={schoolType}
+            className="inline"
+          />
+        ),
+        Gender: Yup.string().required(
+          <TranslationComponent
+            keys={["validation_gender"]}
+            school={schoolType}
+            className="inline"
+          />
+        ),
+        Group: Yup.string().required("Klasse is vereist"),
+      })
+    )
+    .min(
+      1,
+      <TranslationComponent
+        keys={["validation_minimum_1_bully"]}
+        school={schoolType}
+        className="inline"
+      />
+      // "Add At Least 1 Bully"
+    ),
 });

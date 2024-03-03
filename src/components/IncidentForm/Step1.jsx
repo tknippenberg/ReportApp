@@ -11,10 +11,10 @@ const Step1 = () => {
 
   useEffect(() => {
     // Count words
-    const words = values.whatHappened.trim().split(/\s+/);
-    setWordCount(values.whatHappened.trim() === "" ? 0 : words.length);
-  }, [values.whatHappened]);
-  
+    const words = values.IncidentDescription.trim().split(/\s+/);
+    setWordCount(values.IncidentDescription.trim() === "" ? 0 : words.length);
+  }, [values.IncidentDescription]);
+
   const handleChange = (event) => {
     const textarea = event.target;
     setTextareaHeight("");
@@ -24,7 +24,7 @@ const Step1 = () => {
     const words = textarea.value.trim().split(/\s+/);
     setWordCount(textarea.value.trim() === "" ? 0 : words.length);
 
-    setFieldValue("whatHappened", event.target.value);
+    setFieldValue("IncidentDescription", event.target.value);
   };
 
   const schoolType = localStorage.getItem("schoolType");
@@ -37,29 +37,37 @@ const Step1 = () => {
         className="step-heading"
       />
       <div>
-        <label htmlFor="location">Waar</label>
+        <label htmlFor="locationId">Waar</label>
         <LocationDropdown />
-        <ErrorMessage name="location" component="div" className="error" />
+        <ErrorMessage name="LocationId" component="div" className="error" />
       </div>
       <div className="mt-3">
         <label htmlFor="datetime">
           <TranslationComponent keys={["when"]} school={schoolType} />
         </label>
-        <Field type="date" name="date" className="input-field dateField" />
-        <ErrorMessage name="date" component="div" className="error" />
+        <Field
+          type="date"
+          name="IncidentDate"
+          className="input-field dateField"
+        />
+        <ErrorMessage name="IncidentDate" component="div" className="error" />
       </div>
       <div className="mt-3">
-        <label htmlFor="whatHappened">
+        <label htmlFor="IncidentDescription">
           <TranslationComponent keys={["what_happened"]} school={schoolType} />
         </label>
         <Field
           as="textarea"
-          name="whatHappened"
+          name="IncidentDescription"
           className="input-field dateField"
           style={{ height: textareaHeight, minHeight: "47px" }}
           onChange={handleChange}
         />
-        <ErrorMessage name="whatHappened" component="div" className="error" />
+        <ErrorMessage
+          name="IncidentDescription"
+          component="div"
+          className="error"
+        />
       </div>
       <div className="word-count">{wordCount} / 500 woorden</div>
     </div>

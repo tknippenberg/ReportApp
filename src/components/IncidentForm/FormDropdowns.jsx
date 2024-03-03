@@ -14,10 +14,12 @@ export const LocationDropdown = () => {
       }));
     }
   );
+
   return (
-    <Field as="select" name="location" className="select-dropdown">
+    <Field as="select" name="LocationId" className="select-dropdown">
+      <option value="">Select A Location</option>
       {locations.map((location) => (
-        <option key={location.id} value={location.name}>
+        <option key={location.id} value={location.id}>
           {location.name}
         </option>
       ))}
@@ -38,10 +40,18 @@ export const ClassesDropdown = ({ name }) => {
     }
   );
 
+  const classObj = {};
+  if (classes) {
+    classes.forEach((classProp) => {
+      classObj[classProp.id] = classProp.name;
+    });
+  }
+
   return (
     <Field as="select" name={name} className="select-dropdown">
+      <option value="">Select A Class</option>
       {classes.map((schoolClass) => (
-        <option key={schoolClass.id} value={schoolClass.name}>
+        <option key={schoolClass.id} value={schoolClass.id}>
           {schoolClass.name}
         </option>
       ))}

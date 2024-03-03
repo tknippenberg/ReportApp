@@ -17,8 +17,8 @@ const Step3 = () => {
   };
 
   const handleChange3 = (field, index, e) => {
-    setFieldValue(`victims.${index}.${field}`, e.target.value);
-    setFieldValue("totalVictims", index);
+    setFieldValue(`Victims.${index}.${field}`, e.target.value);
+    // setFieldValue("totalVictims", index);
   };
 
   const handleChange2 = (valueName, event) => {
@@ -26,26 +26,26 @@ const Step3 = () => {
   };
 
   const addVictim = () => {
-    setFieldValue("victims", [
-      ...values.victims,
+    setFieldValue("Victims", [
+      ...values.Victims,
       {
-        morevictimFirstName: "",
-        morevictimLastName: "",
-        morevictimGender: "",
-        morevictimClass: "",
+        Firstname: "",
+        Lastname: "",
+        Gender: "",
+        Group: "",
       },
     ]);
   };
 
   const handleRemoveVictim = (indexToRemove) => {
-    const updatedVictims = values.victims.filter(
+    const updatedVictims = values.Victims.filter(
       (victim, index) => index !== indexToRemove
     );
-    setFieldValue("victims", updatedVictims);
+    setFieldValue("Victims", updatedVictims);
   };
 
   const addVictimIfNoVictims = () => {
-    if (values.victims.length === 0) {
+    if (values.Victims.length === 0) {
       addVictim(0);
     }
   };
@@ -55,7 +55,7 @@ const Step3 = () => {
   return (
     <>
       <div className="step-container">
-        <FieldArray name="victims">
+        <FieldArray name="Victims">
           {({ push, remove, form: { errors, touched } }) => (
             <>
               <div className={`${height ? "whoVictimWrapper" : ""}`}>
@@ -71,6 +71,7 @@ const Step3 = () => {
                       value="yes"
                       onChange={(e) => {
                         handleChange("victimWho", e);
+                        handleRemoveVictim(0);
                       }}
                     />
                     <RadioButton
@@ -85,25 +86,26 @@ const Step3 = () => {
                   </div>
                 </div>
               </div>
-              {values.victims.map((victim, index) => {
+              {values.Victims.map((victim, index) => {
                 let errorMsgs = null;
                 if (
-                  errors.victims &&
-                  errors.victims[index] &&
-                  touched.victims &&
-                  touched.victims[index]
+                  errors.Victims &&
+                  errors.Victims[index] &&
+                  touched.Victims &&
+                  touched.Victims[index]
                 ) {
                   errorMsgs = {
-                    morevictimFirstName: touched.victims[index]
-                      ?.morevictimFirstName
-                      ? errors.victims[index].morevictimFirstName
+                    Firstname: touched.Victims[index]?.Firstname
+                      ? errors.Victims[index].Firstname
                       : null,
-                    morevictimLastName: touched.victims[index]
-                      ?.morevictimLastName
-                      ? errors.victims[index].morevictimLastName
+                    Lastname: touched.Victims[index]?.Lastname
+                      ? errors.Victims[index].Lastname
                       : null,
-                    morevictimGender: touched.victims[index]?.morevictimGender
-                      ? errors.victims[index].morevictimGender
+                    Gender: touched.Victims[index]?.Gender
+                      ? errors.Victims[index].Gender
+                      : null,
+                    Group: touched.Victims[index]?.Group
+                      ? errors.Victims[index].Group
                       : null,
                   };
                 }
@@ -118,43 +120,39 @@ const Step3 = () => {
                       {index + 1}
                     </p>
                     <div>
-                      <label htmlFor={`morevictimFirstName${index}`}>
+                      <label htmlFor={`Firstname${index}`}>
                         <TranslationComponent
-                          keys={["firstname"]}
+                          keys={["Firstname"]}
                           school={schoolType}
                         />
                       </label>
                       <Field
                         type="text"
-                        name={`victims.${index}.morevictimFirstName`}
+                        name={`Victims.${index}.Firstname`}
                         className="input-field"
                         placeholder="Voer uw voornaam in"
                       />
-                      {errorMsgs?.morevictimFirstName ? (
-                        <div className="error">
-                          {errorMsgs.morevictimFirstName}
-                        </div>
+                      {errorMsgs?.Firstname ? (
+                        <div className="error">{errorMsgs.Firstname}</div>
                       ) : (
                         <></>
                       )}
                     </div>
                     <div className="mt-3">
-                      <label htmlFor={`morevictimLastName${index}`}>
+                      <label htmlFor={`Lastname${index}`}>
                         <TranslationComponent
-                          keys={["lastname"]}
+                          keys={["Lastname"]}
                           school={schoolType}
                         />
                       </label>
                       <Field
                         type="text"
-                        name={`victims.${index}.morevictimLastName`}
+                        name={`Victims.${index}.Lastname`}
                         className="input-field"
                         placeholder="Voer uw achternaam in"
                       />
-                      {errorMsgs?.morevictimLastName ? (
-                        <div className="error">
-                          {errorMsgs.morevictimLastName}
-                        </div>
+                      {errorMsgs?.Lastname ? (
+                        <div className="error">{errorMsgs.Lastname}</div>
                       ) : (
                         <></>
                       )}
@@ -168,31 +166,23 @@ const Step3 = () => {
                       </label>
                       <div className="flex items-center gap-5 flex-wrap">
                         <RadioButton
-                          name={`victims.${index}.morevictimGender`}
+                          name={`Victims.${index}.Gender`}
                           value="male"
-                          onChange={(e) =>
-                            handleChange3("morevictimGender", index, e)
-                          }
+                          onChange={(e) => handleChange3("Gender", index, e)}
                         />
                         <RadioButton
-                          name={`victims.${index}.morevictimGender`}
+                          name={`Victims.${index}.Gender`}
                           value="female"
-                          onChange={(e) =>
-                            handleChange3("morevictimGender", index, e)
-                          }
+                          onChange={(e) => handleChange3("Gender", index, e)}
                         />
                         <RadioButton
-                          name={`victims.${index}.morevictimGender`}
+                          name={`Victims.${index}.Gender`}
                           value="other"
-                          onChange={(e) =>
-                            handleChange3("morevictimGender", index, e)
-                          }
+                          onChange={(e) => handleChange3("Gender", index, e)}
                         />
                       </div>
-                      {errorMsgs?.morevictimGender ? (
-                        <div className="error">
-                          {errorMsgs.morevictimGender}
-                        </div>
+                      {errorMsgs?.Gender ? (
+                        <div className="error">{errorMsgs.Gender}</div>
                       ) : (
                         <></>
                       )}
@@ -204,14 +194,12 @@ const Step3 = () => {
                           school={schoolType}
                         />
                       </label>
-                      <ClassesDropdown
-                        name={`victims.${index}.morevictimClass`}
-                      />
-                      <ErrorMessage
-                        name={`victims.${index}.morevictimClass`}
-                        component="div"
-                        className="error"
-                      />
+                      <ClassesDropdown name={`Victims.${index}.Group`} />
+                      {errorMsgs?.Group ? (
+                        <div className="error">{errorMsgs.Group}</div>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                     <div className="mt-3">
                       <button
@@ -245,6 +233,7 @@ const Step3 = () => {
             </>
           )}
         </FieldArray>
+        {/* <ErrorMessage name="Victims" component="div" className="error" /> */}
       </div>
     </>
   );

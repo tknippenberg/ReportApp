@@ -11,19 +11,23 @@ import { useNavigate } from "react-router-dom";
 import { deepCopyWithTrue } from "../../utils/utils";
 
 const initialValues = {
-  whatHappened: "",
-  date: new Date().toISOString().split("T")[0], // Set to today's date
-  firstname: "",
-  lastname: "",
-  gender: "",
-  myClass: "",
-  email_address: "",
-  role: "student",
+  SchoolId: localStorage.getItem("schoolId"),
+  LocationId: "",
+  IncidentDescription: "",
+  IncidentDate: new Date().toISOString().split("T")[0], // Set to today's date
+  Notifier: {
+    Firstname: "",
+    Lastname: "",
+    Gender: "",
+    Group: "",
+    Emailaddress: "",
+    Role: "0",
+  },
   victimWho: "yes",
   totalVictims: 0,
-  totalBullies: 1,
-  victims: [],
-  bullies: [],
+  totalBullies: 0,
+  Victims: [],
+  Bullies: [],
 };
 
 const IncidentForm = () => {
@@ -44,20 +48,18 @@ const IncidentForm = () => {
         (field) => {
           // Customize this condition based on your step logic
           if (step === 0) {
-            return ["whatHappened", "date"].includes(field);
-          } else if (step === 1) {
             return [
-              "firstname",
-              "lastname",
-              "gender",
-              "email_address",
-              "role",
+              "IncidentDescription",
+              "IncidentDate",
+              "LocationId",
             ].includes(field);
+          } else if (step === 1) {
+            return ["Notifier"].includes(field);
           } else if (step === 2) {
-            return ["victims"].includes(field);
+            return ["Victims"].includes(field);
           } else if (step === 3) {
             // TODO: check for at least 1 bully
-            return ["bullies"].includes(field);
+            return ["Bullies"].includes(field);
           }
           return true; // Include all fields if not in a specific step
         }

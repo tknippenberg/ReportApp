@@ -2,7 +2,7 @@ import { Field } from "formik";
 import React from "react";
 import TranslationComponent from "../TranslationComponent";
 
-const RadioButton = ({ name, value, onChange, checked }) => {
+const RadioButton = ({ name, value, onChange, checked, labelName }) => {
   const schoolType = localStorage.getItem("schoolType");
 
   return (
@@ -15,7 +15,11 @@ const RadioButton = ({ name, value, onChange, checked }) => {
         // checked={checked}
       />
       <label className="radio-label flex items-end">
-        <TranslationComponent keys={[value]} school={schoolType} />
+        {labelName ? (
+          <TranslationComponent keys={[labelName]} school={schoolType} />
+        ) : (
+          <TranslationComponent keys={[value]} school={schoolType} />
+        )}
       </label>
     </div>
   );

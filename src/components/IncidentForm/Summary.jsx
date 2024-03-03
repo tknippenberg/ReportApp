@@ -1,10 +1,38 @@
 import React from "react";
 import TranslationComponent from "../TranslationComponent";
 import SummaryContainer from "./SummaryContainer";
-import { generateBullies, generateVictims } from "../../utils/FormData";
+import useDataFetcher from "./FetchFieldsData";
 
 const Summary = ({ values }) => {
   const schoolType = localStorage.getItem("schoolType");
+  const schoolId = localStorage.getItem("schoolId");
+
+  const roleObj = {
+    0: "student",
+    1: "parent",
+    2: "teacher",
+    3: "other",
+  };
+
+  const { data: classes, classError } = useDataFetcher(
+    `https://www.wjhulzebosch.nl/Avarix/MeldboxApi/School/${schoolId}/Classes`,
+    "classes",
+    (classes) => {
+      return Object.entries(classes).map(([id, name]) => ({
+        id: parseInt(id),
+        name,
+      }));
+    }
+  );
+
+  const classObj = {};
+  if (classes) {
+    classes.forEach((classProp) => {
+      classObj[classProp.id] = classProp.name;
+    });
+  }
+
+  console.log(classObj);
 
   const yourData = [
     {
@@ -13,7 +41,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["firstname"]} school={schoolType} />
         </>
       ),
-      value: values.firstname,
+      value: values.Notifier.Firstname,
     },
     {
       label: (
@@ -21,7 +49,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["lastname"]} school={schoolType} />
         </>
       ),
-      value: values.lastname,
+      value: values.Notifier.Lastname,
     },
     {
       label: (
@@ -29,9 +57,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["gender"]} school={schoolType} />
         </>
       ),
-      value: (
-        <TranslationComponent keys={[values.gender]} school={schoolType} />
-      ),
+      value: values.Notifier.Gender,
     },
     {
       label: (
@@ -39,7 +65,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["email_address"]} school={schoolType} />
         </>
       ),
-      value: values.email_address,
+      value: values.Notifier.Emailaddress,
     },
     {
       label: (
@@ -47,7 +73,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["role"]} school={schoolType} />
         </>
       ),
-      value: values.role,
+      value: roleObj[values.Notifier.Role],
     },
     {
       label: (
@@ -55,7 +81,7 @@ const Summary = ({ values }) => {
           <TranslationComponent keys={["class"]} school={schoolType} />
         </>
       ),
-      value: values.myClass,
+      value: classObj[values.Notifier.Group],
     },
   ];
 
@@ -73,126 +99,106 @@ const Summary = ({ values }) => {
       />
       <SummaryContainer values={yourData} showNumber={false} />
 
-      {values.victims.map(
-        (
-          {
-            morevictimFirstName,
-            morevictimLastName,
-            morevictimGender,
-            victimClass,
-          },
-          index
-        ) => {
-          return (
-            <>
-              <p className="font-bold mb-3">
-                {" "}
+      {values.Victims.map(({ FirstName, LastName, Gender, Group }, index) => {
+        return (
+          <>
+            <p className="font-bold mb-3">
+              {" "}
+              <TranslationComponent
+                keys={["victim"]}
+                school={schoolType}
+                className="inline"
+              />{" "}
+              {index + 1}
+            </p>
+            <div className="summary-container">
+              <div key={index}>
                 <TranslationComponent
-                  keys={["victim"]}
+                  keys={["firstname"]}
                   school={schoolType}
-                  className="inline"
-                />{" "}
-                {index + 1}
-              </p>
-              <div className="summary-container">
-                <div key={index}>
-                  <TranslationComponent
-                    keys={["firstname"]}
-                    school={schoolType}
-                    className="property-label"
-                  />
-                  <p className="property-value">{morevictimFirstName}</p>
-                  <TranslationComponent
-                    keys={["lastname"]}
-                    school={schoolType}
-                    className="property-label"
-                  />
-                  <p className="property-value">{morevictimLastName}</p>
-
-                  <TranslationComponent
-                    keys={["gender"]}
-                    school={schoolType}
-                    className="property-label"
-                  />
-                  <TranslationComponent
-                    keys={[morevictimGender]}
-                    school={schoolType}
-                    className="property-value"
-                  />
-
-                  <TranslationComponent
-                    keys={["class"]}
-                    school={schoolType}
-                    className="property-label"
-                  />
-                  <p className="property-value">{victimClass}</p>
-                </div>
-              </div>
-            </>
-          );
-        }
-      )}
-
-      {values.bullies.map(
-        (
-          {
-            morebulliesFirstName,
-            morebulliesLastName,
-            morebulliesGender,
-            morebulliesClass,
-          },
-          index
-        ) => {
-          return (
-            <>
-              <p className="font-bold mb-3">
-                {" "}
+                  className="property-label"
+                />
+                <p className="property-value">{FirstName}</p>
                 <TranslationComponent
-                  keys={["bully"]}
+                  keys={["lastname"]}
                   school={schoolType}
-                  className="inline"
-                />{" "}
-                {index + 1}
-              </p>
-              <div className="summary-container">
-                <div key={index}>
-                  <TranslationComponent
-                    keys={["firstname"]}
-                    school={schoolType}
-                    className="property-label"
-                  />
-                  <p className="property-value">{morebulliesFirstName}</p>
+                  className="property-label"
+                />
+                <p className="property-value">{LastName}</p>
 
-                  <TranslationComponent
-                    keys={["lastname"]}
-                    school={schoolType}
-                    className="property-label"
-                  />
-                  <p className="property-value">{morebulliesLastName}</p>
+                <TranslationComponent
+                  keys={["gender"]}
+                  school={schoolType}
+                  className="property-label"
+                />
+                <TranslationComponent
+                  keys={[Gender]}
+                  school={schoolType}
+                  className="property-value"
+                />
 
-                  <TranslationComponent
-                    keys={["gender"]}
-                    school={schoolType}
-                    className="property-label"
-                  />
-                  <TranslationComponent
-                    keys={[morebulliesGender]}
-                    school={schoolType}
-                    className="property-value"
-                  />
-
-                  <TranslationComponent
-                    keys={["class"]}
-                    school={schoolType}
-                    className="property-label"
-                  />
-                  <p className="property-value">{morebulliesClass}</p>
-                </div>
+                <TranslationComponent
+                  keys={["class"]}
+                  school={schoolType}
+                  className="property-label"
+                />
+                <p className="property-value">{classObj[Group]}</p>
               </div>
-            </>
-          );
-        }
-      )}
+            </div>
+          </>
+        );
+      })}
+
+      {values.Bullies.map(({ FirstName, LastName, Gender, Group }, index) => {
+        return (
+          <>
+            <p className="font-bold mb-3">
+              {" "}
+              <TranslationComponent
+                keys={["bully"]}
+                school={schoolType}
+                className="inline"
+              />{" "}
+              {index + 1}
+            </p>
+            <div className="summary-container">
+              <div key={index}>
+                <TranslationComponent
+                  keys={["firstname"]}
+                  school={schoolType}
+                  className="property-label"
+                />
+                <p className="property-value">{FirstName}</p>
+
+                <TranslationComponent
+                  keys={["lastname"]}
+                  school={schoolType}
+                  className="property-label"
+                />
+                <p className="property-value">{LastName}</p>
+
+                <TranslationComponent
+                  keys={["gender"]}
+                  school={schoolType}
+                  className="property-label"
+                />
+                <TranslationComponent
+                  keys={[Gender]}
+                  school={schoolType}
+                  className="property-value"
+                />
+
+                <TranslationComponent
+                  keys={["class"]}
+                  school={schoolType}
+                  className="property-label"
+                />
+                <p className="property-value">{classObj[Group]}</p>
+              </div>
+            </div>
+          </>
+        );
+      })}
     </div>
   );
 };
