@@ -4,7 +4,13 @@ import TranslationComponent from "../TranslationComponent";
 const schoolType = localStorage.getItem("schoolType");
 
 export const validationSchema = Yup.object().shape({
-  LocationId: Yup.string().required("Locatie is vereist"),
+  LocationId: Yup.string().required(
+    <TranslationComponent
+      keys={["select_a_location"]}
+      school={schoolType}
+      className="inline"
+    />
+  ),
   IncidentDescription: Yup.string()
     .test(
       "wordCount",
@@ -103,7 +109,13 @@ export const validationSchema = Yup.object().shape({
           className="inline"
         />
       ),
-      Group: Yup.string().required("Klasse is vereist"),
+      Group: Yup.string().required(
+        <TranslationComponent
+          keys={["select_a_class"]}
+          school={schoolType}
+          className="inline"
+        />
+      ),
     })
   ),
   // .min(
@@ -140,7 +152,13 @@ export const validationSchema = Yup.object().shape({
             className="inline"
           />
         ),
-        Group: Yup.string().required("Klasse is vereist"),
+        Group: Yup.string().required(
+          <TranslationComponent
+            keys={["select_a_class"]}
+            school={schoolType}
+            className="inline"
+          />
+        ),
       })
     )
     .min(

@@ -9,12 +9,17 @@ const TranslationComponent = ({ school, keys, className }) => {
   useEffect(() => {
     const fetchTranslations = async () => {
       try {
-        const response = await fetch(
-          `https://wjhulzebosch.nl/Avarix/MeldboxApi/Translations/${school}`
-        );
-        const data = await response.json();
-        setTranslations(data);
-
+        let cachedTranslations = localStorage.getItem(`${school}_translations`);
+        if (cachedTranslations) {
+          setTranslations(JSON.parse(cachedTranslations));
+        } else {
+          const response = await fetch(
+            `https://wjhulzebosch.nl/Avarix/MeldboxApi/Translations/${school}`
+          );
+          const data = await response.json();
+          setTranslations(data);
+          localStorage.setItem(`${school}_translations`, JSON.stringify(data));
+        }
         setLanguage(school);
       } catch (error) {
         console.error("Error fetching translations:", error);
