@@ -55,7 +55,7 @@ const Step5 = () => {
         <FieldArray name="Bullies">
           {({ push, remove, form: { errors, touched } }) => (
             <>
-              {values.Bullies.map((bully, index) => {
+              {values?.Bullies.map((bully, index) => {
                 let errorMsgs = null;
                 if (
                   errors.Bullies &&
@@ -203,7 +203,7 @@ const Step5 = () => {
             </>
           )}
         </FieldArray>
-        <ErrorMessage className="error" component="div" name="Bullies" />
+        {/* <ErrorMessage className="error" component="div" name="Bullies" /> */}
       </div>
     </>
   );
