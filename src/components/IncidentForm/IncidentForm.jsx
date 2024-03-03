@@ -23,7 +23,7 @@ const initialValues = {
     Emailaddress: "",
     Role: "0",
   },
-  victimWho: "yes",
+  victimSelf: "yes",
   totalVictims: 0,
   totalBullies: 1,
   Victims: [],
