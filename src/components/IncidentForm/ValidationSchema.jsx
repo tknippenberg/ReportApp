@@ -103,7 +103,7 @@ export const validationSchema = Yup.object().shape({
           className="inline"
         />
       ),
-      // Group: Yup.string().required("Klasse is vereist"),
+      Group: Yup.string().required("Klasse is vereist"),
     })
   ),
   // .min(
