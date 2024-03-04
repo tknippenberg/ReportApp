@@ -1,6 +1,9 @@
 import React from "react";
 import useDataFetcher from "./FetchFieldsData";
 import { Field } from "formik";
+import TranslationComponent from "../TranslationComponent";
+
+const schoolType = localStorage.getItem("schoolType");
 
 export const LocationDropdown = () => {
   const schoolId = localStorage.getItem("schoolId");
@@ -17,7 +20,14 @@ export const LocationDropdown = () => {
 
   return (
     <Field as="select" name="LocationId" className="select-dropdown">
-      <option value="">Select A Location</option>
+      <option value="">
+        {" "}
+        <TranslationComponent
+          school={schoolType}
+          keys={["select_a_location"]}
+          className="form-heading"
+        />
+      </option>
       {locations.map((location) => (
         <option key={location.id} value={location.id}>
           {location.name}
@@ -49,7 +59,13 @@ export const ClassesDropdown = ({ name }) => {
 
   return (
     <Field as="select" name={name} className="select-dropdown">
-      <option value="">Select A Class</option>
+      <option value="">
+        <TranslationComponent
+          school={schoolType}
+          keys={["select_a_class"]}
+          className="form-heading"
+        />
+      </option>
       {classes.map((schoolClass) => (
         <option key={schoolClass.id} value={schoolClass.id}>
           {schoolClass.name}
