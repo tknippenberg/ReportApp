@@ -108,9 +108,9 @@ const Step5 = () => {
                       )}
                     </div>
                     <div className="mt-3">
-                      <label htmlFor={`lastname${index}`}>
+                      <label htmlFor={`Lastname${index}`}>
                         <TranslationComponent
-                          keys={["Lastname"]}
+                          keys={["lastname"]}
                           school={schoolType}
                         />
                       </label>
